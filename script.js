@@ -222,65 +222,6 @@
   mostrarLugar("banheiros");
 
   /* ============================================================
-     DESAFIO DA ESCOLA (com localStorage)
-     ============================================================ */
-  const checks = $$(".check-acao");
-  const barraFill = $("#barra-desafio-fill");
-  const barra = $("#barra-desafio");
-  const contador = $("#desafio-contador");
-  const mensagem = $("#mensagem-desafio");
-  const CHAVE_DESAFIO = "cadaGotaConta.desafio";
-
-  const mensagens = [
-    "Marque sua primeira ação para começar! 💧",
-    "Bom começo! Continue assim. 🌱",
-    "Já são 2 ações — a escola agradece! 🙌",
-    "Quase lá! Falta só uma ação. 💪",
-    "🏆 Desafio completo! Você é guardião da água da sua escola!"
-  ];
-
-  function salvarDesafio() {
-    try {
-      const feitos = checks.filter((c) => c.checked).map((c) => c.dataset.acao);
-      localStorage.setItem(CHAVE_DESAFIO, JSON.stringify(feitos));
-    } catch (e) { /* navegador sem localStorage */ }
-  }
-
-  function carregarDesafio() {
-    try {
-      const salvos = JSON.parse(localStorage.getItem(CHAVE_DESAFIO) || "[]");
-      checks.forEach((c) => { c.checked = salvos.includes(c.dataset.acao); });
-    } catch (e) { /* ignora */ }
-  }
-
-  function atualizarDesafio() {
-    const total = checks.length;
-    const feitos = checks.filter((c) => c.checked).length;
-    const pct = (feitos / total) * 100;
-
-    barraFill.style.width = pct + "%";
-    barra.setAttribute("aria-valuenow", String(feitos));
-    contador.innerHTML = "<strong>" + feitos + " de " + total + "</strong> ações realizadas";
-    mensagem.textContent = mensagens[feitos];
-
-    if (feitos === total && !semAnimacao) {
-      barraFill.style.background = "#fff";
-      setTimeout(() => { barraFill.style.background = ""; }, 900);
-    }
-    salvarDesafio();
-  }
-
-  checks.forEach((c) => c.addEventListener("change", atualizarDesafio));
-  $("#btn-reset-desafio").addEventListener("click", () => {
-    checks.forEach((c) => { c.checked = false; });
-    atualizarDesafio();
-    checks[0].focus();
-  });
-
-  carregarDesafio();
-  atualizarDesafio();
-
-  /* ============================================================
      CALCULADORA DE ECONOMIA
      ============================================================ */
   const PAR = {
@@ -393,204 +334,6 @@
   renderMural();
 
   /* ============================================================
-     QUIZ
-     ============================================================ */
-  const perguntas = [
-    {
-      p: "O que é desperdício de água?",
-      alt: [
-        "Usar água em bom estado sem necessidade e jogá-la fora",
-        "Beber água durante o intervalo",
-        "Fechar a torneira depois de usar",
-        "Usar água para higienizar as mãos"
-      ],
-      correta: 0,
-      exp: "Desperdício é perder água que poderia ser usada: torneiras abertas, vazamentos e uso além do necessário."
-    },
-    {
-      p: "Segundo o SINISA 2024, qual parte da água tratada no Brasil se perde nas redes de distribuição?",
-      alt: ["Cerca de 5%", "Cerca de 40%", "Cerca de 75%", "Praticamente nenhuma"],
-      correta: 1,
-      exp: "Cerca de 40,3% do volume produzido se perde antes de chegar às torneiras (Ministério das Cidades / SNIS, 2024)."
-    },
-    {
-      p: "Uma torneira pingando 1 gota por segundo pode desperdiçar quanto em um ano?",
-      alt: ["Cerca de 100 litros", "Cerca de 1.100 litros", "Mais de 11 mil litros", "Nada, é gota mínima"],
-      correta: 2,
-      exp: "Mais de 3.000 galões por ano, o equivalente a mais de 11.356 litros (US EPA — WaterSense)."
-    },
-    {
-      p: "Ao notar uma goteira ou uma descarga que não fecha, o que fazer?",
-      alt: [
-        "Ignorar, é coisa pequena",
-        "Fechar a porta para ninguém ver",
-        "Avisar imediatamente um professor ou funcionário",
-        "Jogar mais água para “empurrar”"
-      ],
-      correta: 2,
-      exp: "Avisar é a atitude mais eficiente: um vazamento pequeno somado a muitos dias desperdiça milhares de litros."
-    },
-    {
-      p: "Para escovar os dentes, qual hábito gasta menos água?",
-      alt: [
-        "Deixar a torneira correndo o tempo todo",
-        "Fechar a torneira enquanto escova e abrir só para enxaguar",
-        "Escovar com a boca cheia de água",
-        "Lavar os dentes só no fim do mês"
-      ],
-      correta: 1,
-      exp: "Fechar a torneira durante a escovação evita cerca de 15 litros desperdiçados por vez (US EPA)."
-    },
-    {
-      p: "Qual é a melhor opção para lavar o pátio da escola?",
-      alt: [
-        "Deixar a mangueira ligada o dia inteiro",
-        "Usar a quantidade necessária com balde e rodo",
-        "Lavar três vezes para ficar brilhando",
-        "Molhar tudo de manhã e deixar secar sujo"
-      ],
-      correta: 1,
-      exp: "A quantidade necessária é suficiente: balde e rodo gastam muito menos que a mangueira aberta sem parar."
-    },
-    {
-      p: "Quantas pessoas no mundo ainda não têm acesso seguro à água potável?",
-      alt: ["2,1 bilhões", "200 milhões", "2 milhões", "Ninguém mais"],
-      correta: 0,
-      exp: "1 em cada 4 pessoas — 2,1 bilhões — segundo o relatório OMS/UNICEF (JMP), 2025."
-    },
-    {
-      p: "Quantos por cento da água da Terra é doce e fácil de usar?",
-      alt: ["Cerca de 50%", "Cerca de 25%", "Cerca de 2,5%", "Cerca de 90%"],
-      correta: 2,
-      exp: "Só cerca de 2,5% é doce, e a maior parte está congelada em geleiras (USGS — Water Science School)."
-    }
-  ];
-
-  let indice = 0;
-  let pontos = 0;
-  let respondida = false;
-
-  const elPergunta = $("#quiz-pergunta");
-  const elAlternativas = $("#quiz-alternativas");
-  const elFeedback = $("#quiz-feedback");
-  const elProxima = $("#quiz-proxima");
-  const elProgresso = $("#quiz-progresso");
-  const elBarraQuiz = $("#barra-quiz-fill");
-  const elPontos = $("#quiz-pontos");
-  const elConteudo = $("#quiz-conteudo");
-  const elFinal = $("#quiz-final");
-
-  function renderPergunta() {
-    respondida = false;
-    const atual = perguntas[indice];
-
-    elPergunta.textContent = atual.p;
-    elProgresso.textContent = "Pergunta " + (indice + 1) + " de " + perguntas.length;
-    elBarraQuiz.style.width = ((indice + 1) / perguntas.length) * 100 + "%";
-    elFeedback.hidden = true;
-    elFeedback.className = "quiz-feedback";
-    elProxima.hidden = true;
-    elAlternativas.innerHTML = "";
-
-    atual.alt.forEach((texto, i) => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "alternativa";
-      btn.textContent = texto;
-      btn.addEventListener("click", () => responder(i, btn));
-      elAlternativas.appendChild(btn);
-    });
-
-    elAlternativas.querySelector("button").focus();
-  }
-
-  function responder(escolha, botao) {
-    if (respondida) return;
-    respondida = true;
-
-    const atual = perguntas[indice];
-    const todos = $$(".alternativa", elAlternativas);
-
-    todos.forEach((b, i) => {
-      b.disabled = true;
-      if (i === atual.correta) b.classList.add("certa");
-    });
-
-    const acertou = escolha === atual.correta;
-    if (acertou) {
-      pontos++;
-      botao.classList.add("certa");
-    } else {
-      botao.classList.add("errada");
-    }
-
-    elPontos.textContent = pontos;
-    elFeedback.hidden = false;
-    elFeedback.className = "quiz-feedback " + (acertou ? "ok" : "nao");
-    elFeedback.textContent =
-      (acertou ? "✅ Isso mesmo! " : "❌ Não é isso. ") + atual.exp;
-
-    elProxima.hidden = false;
-    elProxima.textContent =
-      indice === perguntas.length - 1 ? "Ver resultado 🏁" : "Próxima pergunta →";
-    elProxima.focus();
-  }
-
-  function finalizar() {
-    elConteudo.hidden = true;
-    elFinal.hidden = false;
-    elProgresso.textContent = "Quiz concluído!";
-    elBarraQuiz.style.width = "100%";
-
-    const total = perguntas.length;
-    const pct = Math.round((pontos / total) * 100);
-    $("#quiz-resultado").textContent = pontos + " de " + total + " (" + pct + "%)";
-
-    let emoji = "🎉";
-    let titulo = "Mandou muito bem!";
-    let msg =
-      "Você entendeu o básico do desperdício de água e já pode ensinar os colegas. Continue assim: cada gota conta!";
-
-    if (pct < 40) {
-      emoji = "🌱";
-      titulo = "Continue aprendendo!";
-      msg =
-        "Vale revisar as seções “O problema” e “Você sabia?”. Pequenas mudanças de hábito fazem toda a diferença na escola.";
-    } else if (pct < 75) {
-      emoji = "💧";
-      titulo = "Bom trabalho!";
-      msg =
-        "Você já sabe o essencial. Reveja as dicas do site e desafie um colega a fazer o quiz também.";
-    }
-
-    $("#quiz-emoji-final").textContent = emoji;
-    $("#quiz-titulo-final").textContent = titulo;
-    $("#quiz-mensagem-final").textContent = msg;
-    $("#quiz-reiniciar").focus();
-  }
-
-  function reiniciarQuiz() {
-    indice = 0;
-    pontos = 0;
-    elPontos.textContent = "0";
-    elFinal.hidden = true;
-    elConteudo.hidden = false;
-    renderPergunta();
-  }
-
-  elProxima.addEventListener("click", () => {
-    if (indice === perguntas.length - 1) {
-      finalizar();
-    } else {
-      indice++;
-      renderPergunta();
-    }
-  });
-
-  $("#quiz-reiniciar").addEventListener("click", reiniciarQuiz);
-  renderPergunta();
-
-  /* ============================================================
      BOTÃO VOLTAR AO TOPO
      ============================================================ */
   const btnTopo = $("#voltar-topo");
@@ -608,14 +351,56 @@
   );
 
   /* ============================================================
-     CAMPANHA: metas e frases editáveis (lidas do painel do admin)
+     COMUNICAR UM PROBLEMA AO ADMINISTRADOR
+     ============================================================ */
+  const CHAVE_PROBLEMAS = "cadaGotaConta.problemas";
+
+  function lerProblemas() {
+    try { return JSON.parse(localStorage.getItem(CHAVE_PROBLEMAS)) || []; }
+    catch (e) { return []; }
+  }
+  function gravarProblemas(v) {
+    try { localStorage.setItem(CHAVE_PROBLEMAS, JSON.stringify(v)); } catch (e) {}
+  }
+
+  const reportarForm = $("#reportar-form");
+  const reportarErro = $("#reportar-erro");
+  const reportarOk = $("#reportar-ok");
+
+  reportarForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const local = $("#reportar-local").value.trim();
+    const tipo = $("#reportar-tipo").value.trim();
+    if (!local || !tipo) {
+      reportarErro.hidden = false;
+      $("#reportar-local").focus();
+      return;
+    }
+    reportarErro.hidden = true;
+    const novos = lerProblemas();
+    novos.unshift({
+      quando: new Date().toLocaleString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      }),
+      local: local,
+      tipo: tipo,
+      descricao: $("#reportar-desc").value.trim(),
+      nome: $("#reportar-nome").value.trim()
+    });
+    gravarProblemas(novos);
+    reportarForm.reset();
+    reportarOk.hidden = false;
+    setTimeout(() => { reportarOk.hidden = true; }, 9000);
+  });
+
+  /* ============================================================
+     CAMPANHA: frases editáveis (lidas do painel do admin)
      ============================================================ */
 
-  const METAS_PADRAO = [
-    { t: "Reduzir o consumo de água da escola em 10% em 3 meses", p: 62 },
-    { t: "Mapear e reportar todos os vazamentos em 30 dias", p: 45 },
-    { t: "90% das turmas participando do Desafio Cada Gota Conta", p: 80 }
-  ];
   const FRASES_PADRAO = [
     "“Cada gota que economiza hoje é água que sobra amanhã.” 💧",
     "“Fechar a torneira leva 1 segundo. Reparar um vazamento, 1 aviso.” 🚰",
@@ -633,7 +418,6 @@
   function gravarEdicao(obj) { try { localStorage.setItem(CHAVE_EDICAO, JSON.stringify(obj)); } catch (e) {} }
 
   const elFrasesLista = $("#frases-lista");
-  const elMetaLista = $("#meta-lista");
 
   function renderFrases() {
     const ed = lerEdicao();
@@ -646,32 +430,5 @@
     });
   }
 
-  function renderMetas() {
-    const ed = lerEdicao();
-    const metas = Array.isArray(ed.metas) ? ed.metas : METAS_PADRAO;
-    elMetaLista.innerHTML = "";
-    metas.forEach((meta) => {
-      if (!meta || !meta.t) return;
-      const div = document.createElement("div");
-      div.className = "meta";
-      const info = document.createElement("div");
-      info.className = "meta-info";
-      const span = document.createElement("span");
-      span.textContent = meta.t;
-      const strong = document.createElement("strong");
-      strong.textContent = meta.p + "%";
-      info.append(span, strong);
-      const barraDiv = document.createElement("div");
-      barraDiv.className = "barra";
-      const fill = document.createElement("div");
-      fill.className = "barra-preenchida verde";
-      fill.style.width = Math.min(100, Math.max(0, meta.p)) + "%";
-      barraDiv.appendChild(fill);
-      div.append(info, barraDiv);
-      elMetaLista.appendChild(div);
-    });
-  }
-
   renderFrases();
-  renderMetas();
 })();

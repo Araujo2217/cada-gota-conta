@@ -7,11 +7,6 @@
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
 
   /* ---------- Dados padrão ---------- */
-  const METAS_PADRAO = [
-    { t: "Reduzir o consumo de água da escola em 10% em 3 meses", p: 62 },
-    { t: "Mapear e reportar todos os vazamentos em 30 dias", p: 45 },
-    { t: "90% das turmas participando do Desafio Cada Gota Conta", p: 80 }
-  ];
   const FRASES_PADRAO = [
     "“Cada gota que economiza hoje é água que sobra amanhã.” 💧",
     "“Fechar a torneira leva 1 segundo. Reparar um vazamento, 1 aviso.” 🚰",
@@ -20,12 +15,6 @@
     "“Pátio limpo não precisa de mangueira ligada o dia todo.” 🧽",
     "“Economizar água é o jeito mais fácil de ser sustentável.” 🌱"
   ];
-  const ACACOES_DESAFIO = {
-    fechei: "Fechei a torneira corretamente.",
-    avisei: "Avisei sobre um vazamento.",
-    evitei: "Evitei desperdiçar água.",
-    incentivei: "Incentivei outra pessoa a economizar água."
-  };
 
   /* ---------- Credenciais de demonstração (projeto escolar) ---------- */
   const ADM_USUARIO = "admin";
@@ -34,7 +23,7 @@
   /* ---------- Chaves compartilhadas com a página pública ---------- */
   const CHAVE_EDICAO = "cadaGotaConta.edicao";
   const CHAVE_MURAL = "cadaGotaConta.mural";
-  const CHAVE_DESAFIO = "cadaGotaConta.desafio";
+  const CHAVE_PROBLEMAS = "cadaGotaConta.problemas";
   const CHAVE_SESSAO = "cadaGotaConta.sessao";
 
   function lerEdicao() {
@@ -51,12 +40,12 @@
   function gravarMural(v) {
     try { localStorage.setItem(CHAVE_MURAL, JSON.stringify(v)); } catch (e) {}
   }
-  function lerDesafio() {
-    try { return JSON.parse(localStorage.getItem(CHAVE_DESAFIO)) || []; }
+  function lerProblemas() {
+    try { return JSON.parse(localStorage.getItem(CHAVE_PROBLEMAS)) || []; }
     catch (e) { return []; }
   }
-  function gravarDesafio(v) {
-    try { localStorage.setItem(CHAVE_DESAFIO, JSON.stringify(v)); } catch (e) {}
+  function gravarProblemas(v) {
+    try { localStorage.setItem(CHAVE_PROBLEMAS, JSON.stringify(v)); } catch (e) {}
   }
   function sessaoAtiva() {
     try { return sessionStorage.getItem(CHAVE_SESSAO) === "admin"; }
@@ -99,80 +88,20 @@
     $("#admin-usuario").focus();
   });
 
-  /* ---------- Estado compartilhado ---------- */
+  /* ---------- Estado compartilhado (frases) ---------- */
   function estadoAtual() {
     const ed = lerEdicao();
-    const metas = Array.isArray(ed.metas)
-      ? ed.metas.map((m) => ({ t: String(m.t || ""), p: Number(m.p) || 0 }))
-      : METAS_PADRAO.map((m) => ({ ...m }));
     const frases = Array.isArray(ed.frases) ? ed.frases.slice() : FRASES_PADRAO.slice();
-    return { ed, metas, frases };
+    return { ed, frases };
   }
 
-  function salvarEstado(metas, frases) {
+  function salvarFrases(frases) {
     const ed = lerEdicao();
-    ed.metas = metas;
     ed.frases = frases;
     gravarEdicao(ed);
   }
 
-  /* ---------- Metas ---------- */
-  const elAdminMetas = $("#admin-metas");
-
-  function renderAdminMetas() {
-    const { metas } = estadoAtual();
-    elAdminMetas.innerHTML = "";
-    metas.forEach((meta, i) => {
-      const div = document.createElement("div");
-      div.className = "admin-meta";
-
-      const label = document.createElement("label");
-      label.setAttribute("for", "admin-meta-t-" + i);
-      label.textContent = "Meta " + (i + 1);
-
-      const linha = document.createElement("div");
-      linha.className = "admin-meta-linha";
-
-      const inputT = document.createElement("input");
-      inputT.type = "text";
-      inputT.id = "admin-meta-t-" + i;
-      inputT.value = meta.t;
-      inputT.setAttribute("aria-label", "Texto da meta " + (i + 1));
-
-      const inputP = document.createElement("input");
-      inputP.type = "number";
-      inputP.min = 0;
-      inputP.max = 100;
-      inputP.step = 1;
-      inputP.value = meta.p;
-      inputP.setAttribute("aria-label", "Percentual da meta " + (i + 1));
-
-      const aoDigitar = () => atualizarMeta(i, inputT.value, inputP.valueAsNumber);
-      inputT.addEventListener("input", aoDigitar);
-      inputP.addEventListener("input", aoDigitar);
-
-      linha.append(inputT, inputP);
-      div.append(label, linha);
-      elAdminMetas.appendChild(div);
-    });
-  }
-
-  function atualizarMeta(i, titulo, pct) {
-    const atual = estadoAtual();
-    atual.metas[i] = {
-      t: titulo,
-      p: Number.isFinite(pct) ? Math.min(100, Math.max(0, pct)) : 0
-    };
-    salvarEstado(atual.metas, atual.frases);
-  }
-
-  $("#admin-restaurar-metas").addEventListener("click", () => {
-    const atual = estadoAtual();
-    salvarEstado(METAS_PADRAO.map((m) => ({ ...m })), atual.frases);
-    renderAdminMetas();
-  });
-
-  /* ---------- Frases ---------- */
+  /* ---------- Frases de conscientização ---------- */
   const elAdminFrases = $("#admin-frases");
 
   function renderAdminFrases() {
@@ -189,7 +118,7 @@
       btn.addEventListener("click", () => {
         const atual = estadoAtual();
         atual.frases.splice(i, 1);
-        salvarEstado(atual.metas, atual.frases);
+        salvarFrases(atual.frases);
         renderAdminFrases();
       });
       li.append(span, btn);
@@ -204,7 +133,7 @@
     if (!t) return;
     const atual = estadoAtual();
     atual.frases.push(t);
-    salvarEstado(atual.metas, atual.frases);
+    salvarFrases(atual.frases);
     input.value = "";
     renderAdminFrases();
     input.focus();
@@ -244,43 +173,54 @@
     renderAdminMural();
   });
 
-  /* ---------- Desafio (estado local) ---------- */
-  const elDesafioCount = $("#admin-desafio-count");
-  const elDesafioLista = $("#admin-desafio-lista");
-  const elDesafioVazio = $("#admin-desafio-vazio");
+  /* ---------- Problemas comunicados pelos alunos ---------- */
+  const elAdminProblemas = $("#admin-problemas-lista");
+  const elAdminProblemasCount = $("#admin-problemas-count");
+  const elAdminProblemasVazio = $("#admin-problemas-vazio");
 
-  function renderAdminDesafio() {
-    const feitos = lerDesafio();
-    elDesafioCount.textContent = feitos.length + " de 4";
-    elDesafioVazio.hidden = feitos.length > 0;
-    elDesafioLista.innerHTML = "";
-    feitos.forEach((chave) => {
-      const rotulo = ACACOES_DESAFIO[chave];
-      if (!rotulo) return;
+  function renderAdminProblemas() {
+    const avisos = lerProblemas();
+    elAdminProblemasCount.textContent = avisos.length;
+    elAdminProblemasVazio.hidden = avisos.length > 0;
+    elAdminProblemas.innerHTML = "";
+    avisos.forEach((p, i) => {
       const li = document.createElement("li");
-      li.textContent = "✅ " + rotulo;
-      elDesafioLista.appendChild(li);
+      const info = document.createElement("span");
+      const titulo = (p.tipo || "Problema") + (p.local ? " — " + p.local : "");
+      const quando = p.quando ? " · " + p.quando : "";
+      const extra = [p.descricao, p.nome].filter(Boolean).join(" · ");
+      info.textContent = titulo + quando + (extra ? " · " + extra : "");
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = "apagar";
+      btn.setAttribute("aria-label", "Apagar aviso: " + titulo);
+      btn.addEventListener("click", () => {
+        const atuais = lerProblemas();
+        atuais.splice(i, 1);
+        gravarProblemas(atuais);
+        renderAdminProblemas();
+      });
+      li.append(info, btn);
+      elAdminProblemas.appendChild(li);
     });
   }
 
-  $("#admin-reset-desafio").addEventListener("click", () => {
-    gravarDesafio([]);
-    renderAdminDesafio();
+  $("#admin-limpar-problemas").addEventListener("click", () => {
+    gravarProblemas([]);
+    renderAdminProblemas();
   });
 
-  /* ---------- Restaurar tudo ---------- */
+  /* ---------- Restaurar frases padrão ---------- */
   $("#admin-restaurar").addEventListener("click", () => {
     gravarEdicao({});
-    renderAdminMetas();
     renderAdminFrases();
   });
 
   /* ---------- Inicialização ---------- */
   function carregarPainel() {
-    renderAdminMetas();
     renderAdminFrases();
     renderAdminMural();
-    renderAdminDesafio();
+    renderAdminProblemas();
   }
 
   if (sessaoAtiva()) {

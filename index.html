@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cada Gota Conta! — Desperdício de água nas escolas</title>
-<meta name="description" content="Site educativo sobre desperdício de água nas escolas: dados com fontes, dicas práticas, desafio interativo, calculadora de economia e quiz.">
+<meta name="description" content="Site educativo sobre desperdício de água nas escolas: dados com fontes, como ajudar, comunicar problemas ao administrador e calculadora de economia.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -33,14 +33,13 @@
 
     <ul class="lista-nav" id="lista-nav">
       <li><a href="#inicio">Início</a></li>
+      <li><a href="#reportar">Comunicar problema</a></li>
       <li><a href="#problema">O problema</a></li>
       <li><a href="#sabia">Você sabia?</a></li>
       <li><a href="#mapa">Onde desperdiça</a></li>
       <li><a href="#ajudar">Como ajudar</a></li>
-      <li><a href="#desafio">Desafio</a></li>
       <li><a href="#calculadora">Calculadora</a></li>
       <li><a href="#campanha">Campanha</a></li>
-      <li><a href="#quiz">Quiz</a></li>
     </ul>
   </nav>
 </header>
@@ -59,7 +58,10 @@
         inteiro — na limpeza, na cozinha, nos banheiros e no pátio. Cada torneira mal fechada é água que
         foi captada, tratada e bombeada sendo jogada fora. Economizar aqui vira hábito em casa e na cidade.
       </p>
-      <a class="botao botao-primario" href="#problema">Descubra como ajudar</a>
+      <div class="hero-acoes">
+        <a class="botao botao-primario" href="#problema">Descubra como ajudar</a>
+        <a class="botao botao-hero-claro" href="#reportar">📣 Comunicar um problema</a>
+      </div>
 
       <ul class="hero-numeros" aria-label="Números que mostram a importância do tema">
         <li>
@@ -159,6 +161,61 @@
 
   <div class="ondulacao" aria-hidden="true">
     <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,40 C240,90 480,10 720,45 C960,80 1200,20 1440,55 L1440,90 L0,90 Z" fill="#ffffff"></path></svg>
+  </div>
+</section>
+
+<!-- ===================== COMUNICAR UM PROBLEMA AO ADMIN ===================== -->
+<section class="secao secao-fundo-suave" id="reportar">
+  <div class="container container-estreito">
+    <header class="cabecalho-secao reveal">
+      <p class="etiqueta">Ação rápida</p>
+      <h2>Comunicar um problema ao administrador 📣</h2>
+      <p class="secao-lead">Viu uma torneira pingando, um vazamento ou uma descarga quebrada? Avise agora: o aviso chega para quem administra a escola e a água deixada desperdiçada vira um problema a menos.</p>
+    </header>
+
+    <div class="reportar-caixa reveal">
+      <form id="reportar-form">
+        <div class="reportar-grade">
+          <div class="campo-form">
+            <label for="reportar-local">Onde fica o problema?</label>
+            <select id="reportar-local" required>
+              <option value="">Escolha o local…</option>
+              <option>Banheiros</option>
+              <option>Bebedouro</option>
+              <option>Cozinha</option>
+              <option>Torneiras (pátio e corredores)</option>
+              <option>Jardins</option>
+              <option>Área de limpeza</option>
+              <option>Outro local</option>
+            </select>
+          </div>
+          <div class="campo-form">
+            <label for="reportar-tipo">Qual é o problema?</label>
+            <select id="reportar-tipo" required>
+              <option value="">Escolha o tipo…</option>
+              <option>Torneira pingando / com vazamento</option>
+              <option>Torneira aberta ou quebrada</option>
+              <option>Descarga / vaso com defeito</option>
+              <option>Mangueira ou registro com vazamento</option>
+              <option>Piso molhado sem motivo / água escorrendo</option>
+              <option>Outro desperdício de água</option>
+            </select>
+          </div>
+        </div>
+        <div class="campo-form">
+          <label for="reportar-desc">Descreva rapidamente (opcional)</label>
+          <textarea id="reportar-desc" rows="2" maxlength="280" placeholder="Ex.: a torneira do bebedouro do 2º andar não para de pingar…"></textarea>
+        </div>
+        <div class="campo-form">
+          <label for="reportar-nome">Seu nome ou turma (opcional)</label>
+          <input type="text" id="reportar-nome" maxlength="60" placeholder="Ex.: Ana, 7º ano A">
+        </div>
+        <p class="admin-erro" id="reportar-erro" hidden>Escolha o local e o tipo do problema antes de enviar.</p>
+        <button class="botao botao-primario" type="submit">Enviar aviso ao administrador</button>
+      </form>
+      <p class="reportar-ok" id="reportar-ok" hidden>✅ Aviso enviado! Obrigado por ajudar a economizar água. O problema já aparece no painel do administrador.</p>
+      <p class="fonte-mini reportar-nota">💡 O aviso fica registrado neste navegador e aparece na página do administrador (admin.html).</p>
+    </div>
   </div>
 </section>
 
@@ -396,62 +453,6 @@
   </div>
 </section>
 
-<!-- ===================== 6. DESAFIO DA ESCOLA ===================== -->
-<section class="secao" id="desafio">
-  <div class="container container-estreito">
-    <header class="cabecalho-secao reveal">
-      <p class="etiqueta">Mão na massa</p>
-      <h2>Desafio: Cada Gota Conta 🏆</h2>
-      <p class="secao-lead">Marque as ações sustentáveis que você realizou hoje. Seu progresso fica salvo neste navegador.</p>
-    </header>
-
-    <div class="desafio-painel reveal">
-      <ul class="lista-checks" id="lista-checks">
-        <li>
-          <label class="check-item">
-            <input type="checkbox" class="check-acao" data-acao="fechei">
-            <span class="caixa-check" aria-hidden="true"></span>
-            <span class="texto-check">✅ Fechei a torneira corretamente.</span>
-          </label>
-        </li>
-        <li>
-          <label class="check-item">
-            <input type="checkbox" class="check-acao" data-acao="avisei">
-            <span class="caixa-check" aria-hidden="true"></span>
-            <span class="texto-check">✅ Avisei sobre um vazamento.</span>
-          </label>
-        </li>
-        <li>
-          <label class="check-item">
-            <input type="checkbox" class="check-acao" data-acao="evitei">
-            <span class="caixa-check" aria-hidden="true"></span>
-            <span class="texto-check">✅ Evitei desperdiçar água.</span>
-          </label>
-        </li>
-        <li>
-          <label class="check-item">
-            <input type="checkbox" class="check-acao" data-acao="incentivei">
-            <span class="caixa-check" aria-hidden="true"></span>
-            <span class="texto-check">✅ Incentivei outra pessoa a economizar água.</span>
-          </label>
-        </li>
-      </ul>
-
-      <div class="progresso-bloco">
-        <div class="progresso-info">
-          <p id="desafio-contador" aria-live="polite"><strong>0 de 4</strong> ações realizadas</p>
-          <button class="botao botao-secundario botao-pequeno" id="btn-reset-desafio" type="button">Recomeçar</button>
-        </div>
-        <div class="barra" role="progressbar" aria-labelledby="desafio-contador" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0" id="barra-desafio">
-          <div class="barra-preenchida" id="barra-desafio-fill" style="width:0%"></div>
-        </div>
-        <p class="mensagem-desafio" id="mensagem-desafio">Marque sua primeira ação para começar! 💧</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== 7. CALCULADORA DE ECONOMIA ===================== -->
 <section class="secao secao-fundo-suave" id="calculadora">
   <div class="container">
     <header class="cabecalho-secao reveal">
@@ -549,19 +550,9 @@
       </article>
     </div>
 
-    <div class="campanha-meio reveal">
-      <div class="frases-caixa">
-        <h3>Frases de conscientização</h3>
-        <ul class="frases-lista" id="frases-lista"></ul>
-      </div>
-
-      <div class="metas-caixa">
-        <h3>Metas da campanha <span class="selo selo-ficticio">fictícias</span></h3>
-
-        <div id="meta-lista"></div>
-
-        <p class="fonte-mini">Metas ilustrativas criadas para este projeto escolar.</p>
-      </div>
+    <div class="frases-caixa reveal">
+      <h3>Frases de conscientização</h3>
+      <ul class="frases-lista" id="frases-lista"></ul>
     </div>
 
     <div class="mural reveal">
@@ -578,45 +569,8 @@
   </div>
 </section>
 
-<!-- ===================== 9. QUIZ ===================== -->
-<section class="secao secao-fundo-suave" id="quiz">
-  <div class="container container-estreito">
-    <header class="cabecalho-secao reveal">
-      <p class="etiqueta">Teste o que aprendeu</p>
-      <h2>Quiz: quanto você sabe sobre água? 🧠</h2>
-      <p class="secao-lead">8 perguntas rápidas. Após cada resposta você vê a explicação e, no final, a pontuação.</p>
-    </header>
-
-    <div class="quiz-painel reveal">
-      <div class="quiz-topo">
-        <p id="quiz-progresso">Pergunta 1 de 8</p>
-        <div class="barra barra-quiz">
-          <div class="barra-preenchida" id="barra-quiz-fill" style="width:12.5%"></div>
-        </div>
-        <p class="quiz-pontos">Pontos: <strong id="quiz-pontos">0</strong></p>
-      </div>
-
-      <div id="quiz-conteudo">
-        <h3 class="quiz-pergunta" id="quiz-pergunta">—</h3>
-        <div class="quiz-alternativas" id="quiz-alternativas" role="group" aria-label="Alternativas de resposta"></div>
-        <div class="quiz-feedback" id="quiz-feedback" aria-live="polite" hidden></div>
-        <button class="botao botao-primario" id="quiz-proxima" type="button" hidden>Próxima pergunta →</button>
-      </div>
-
-      <div id="quiz-final" hidden>
-        <p class="quiz-emoji-final" id="quiz-emoji-final" aria-hidden="true">🎉</p>
-        <h3 class="quiz-pergunta" id="quiz-titulo-final">Resultado</h3>
-        <p class="quiz-resultado" id="quiz-resultado"></p>
-        <p class="quiz-mensagem" id="quiz-mensagem-final"></p>
-        <button class="botao botao-secundario" id="quiz-reiniciar" type="button">Refazer o quiz</button>
-      </div>
-    </div>
-  </div>
-</section>
-
 </main>
 
-<!-- ===================== 10. RODAPÉ ===================== -->
 <footer class="rodape" id="rodape">
   <div class="ondulacao ondulacao-rodape" aria-hidden="true">
     <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,50 C240,10 480,80 720,50 C960,20 1200,70 1440,40 L1440,0 L0,0 Z" fill="#f4fbfe"></path></svg>
@@ -632,14 +586,13 @@
       <h2>Seções</h2>
       <ul>
         <li><a href="#inicio">Página inicial</a></li>
+        <li><a href="#reportar">Comunicar um problema</a></li>
         <li><a href="#problema">O problema</a></li>
         <li><a href="#sabia">Você sabia?</a></li>
         <li><a href="#mapa">Onde a água é desperdiçada</a></li>
         <li><a href="#ajudar">Como podemos ajudar</a></li>
-        <li><a href="#desafio">Desafio da escola</a></li>
         <li><a href="#calculadora">Calculadora de economia</a></li>
         <li><a href="#campanha">Campanha escolar</a></li>
-        <li><a href="#quiz">Quiz</a></li>
       </ul>
     </nav>
 
@@ -660,7 +613,6 @@
     <div class="rodape-bloco">
       <h2>Sobre o projeto</h2>
       <p>Site criado como projeto escolar de educação ambiental, em formato de campanha de conscientização. Todos os dados apresentados possuem fonte indicada — nenhum número foi inventado.</p>
-      <p class="rodape-nota">As metas da campanha “Nossa Escola Economiza Água” são fictícias e servem apenas de exemplo para a atividade.</p>
       <p><a class="link-admin" href="admin.html">🔐 Área do administrador</a></p>
     </div>
   </div>

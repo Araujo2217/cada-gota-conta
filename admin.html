@@ -34,7 +34,7 @@
   <!-- LOGIN -->
   <section class="admin-login-caixa" id="admin-login">
     <h1>🔐 Área do administrador</h1>
-    <p class="secao-lead">Entre para editar as metas e frases da campanha e gerenciar as ações registradas no mural.</p>
+    <p class="secao-lead">Entre para gerenciar as frases da campanha, as ações do mural e os problemas comunicados pelos alunos.</p>
     <form id="admin-login-form">
       <div class="campo-form">
         <label for="admin-usuario">Usuário</label>
@@ -59,13 +59,6 @@
     <p class="secao-lead">As alterações ficam salvas <strong>neste navegador</strong> e aparecem no site público acessado por ele. Para valer para <strong>todos os visitantes</strong>, edite os arquivos e envie ao GitHub (ou peça ajuda).</p>
 
     <div class="admin-grupo">
-      <h2>Metas da campanha</h2>
-      <p class="fonte-mini">Edite o texto e o percentual de cada meta. O site público atualiza ao abrir.</p>
-      <div id="admin-metas"></div>
-      <button class="botao botao-secundario botao-pequeno" id="admin-restaurar-metas" type="button">Restaurar metas padrão</button>
-    </div>
-
-    <div class="admin-grupo">
       <h2>Frases de conscientização</h2>
       <form class="mural-form" id="admin-frase-form">
         <label class="oculto" for="admin-frase-input">Nova frase de conscientização</label>
@@ -83,16 +76,15 @@
     </div>
 
     <div class="admin-grupo">
-      <h2>Desafio Cada Gota Conta <span class="selo selo-ficticio">estado local</span></h2>
-      <p class="secao-lead">Ações marcadas hoje neste navegador:</p>
-      <p class="dado-grande" id="admin-desafio-count">0 de 4</p>
-      <ul class="lista-marcada" id="admin-desafio-lista"></ul>
-      <p class="fonte-mini" id="admin-desafio-vazio">Nenhuma ação marcada ainda.</p>
-      <button class="botao botao-secundario botao-pequeno" id="admin-reset-desafio" type="button">Zerar desafio</button>
+      <h2>Problemas comunicados (<span id="admin-problemas-count">0</span>)</h2>
+      <p class="fonte-mini">Avisos enviados pelos alunos na página inicial — ficam salvos neste navegador.</p>
+      <ul class="admin-lista-frases" id="admin-problemas-lista"></ul>
+      <p class="fonte-mini" id="admin-problemas-vazio">Nenhum problema comunicado ainda.</p>
+      <button class="botao botao-secundario botao-pequeno" id="admin-limpar-problemas" type="button">Limpar avisos</button>
     </div>
 
     <div class="admin-acoes">
-      <button class="botao botao-secundario botao-pequeno" id="admin-restaurar" type="button">Restaurar metas e frases padrão</button>
+      <button class="botao botao-secundario botao-pequeno" id="admin-restaurar" type="button">Restaurar frases padrão</button>
     </div>
   </section>
 </main>
