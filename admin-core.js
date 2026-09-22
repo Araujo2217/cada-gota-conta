@@ -53,6 +53,44 @@
     catch (e) { return false; }
   }
 
+  /* ---------- Nuvem (avisos entre computadores, Firebase RTDB) ---------- */
+  const NUVEM = ((typeof window !== "undefined") &&
+    window.CADA_GOTA_CONFIG && window.CADA_GOTA_CONFIG.rtdb) || "";
+
+  function fpProblema(p) {
+    return p.id || (p.quando || "") + "|" + (p.local || "") + "|" + (p.tipo || "");
+  }
+  function tsProblema(p) {
+    if (p.ts) return Number(p.ts) || 0;
+    const m = /^(\d{2})\/(\d{2})\/(\d{4}),?\s*(\d{2}):(\d{2})/.exec(p.quando || "");
+    return m ? Date.UTC(+m[3], +m[2] - 1, +m[1], +m[4], +m[5]) : 0;
+  }
+  async function nuvemGet() {
+    if (!NUVEM) return null;
+    try {
+      const r = await fetch(NUVEM + "/problemas.json", { cache: "no-store" });
+      if (!r.ok) return null;
+      const obj = await r.json();
+      if (!obj || typeof obj !== "object") return [];
+      return Object.keys(obj).map((id) => Object.assign({ id: id }, obj[id]));
+    } catch (e) { return null; }
+  }
+  async function nuvemApagar(id) {
+    if (!NUVEM || !id) return;
+    try { await fetch(NUVEM + "/problemas/" + id + ".json", { method: "DELETE" }); } catch (e) {}
+  }
+  async function nuvemLimpar() {
+    if (!NUVEM) return;
+    try { await fetch(NUVEM + "/problemas.json", { method: "DELETE" }); } catch (e) {}
+  }
+  function atualizarStatusNuvem() {
+    const el = $("#admin-sync-status");
+    if (!el) return;
+    el.textContent = NUVEM
+      ? "☁️ Sincronizado — avisos chegam de qualquer computador."
+      : "⚠️ Nuvem ainda não configurada — avisos aparecem só no mesmo navegador.";
+  }
+
   /* ---------- Login ---------- */
   const loginView = $("#admin-login");
   const painelView = $("#admin-painel");
@@ -220,8 +258,10 @@
       btn.setAttribute("aria-label", "Apagar aviso: " + (p.tipo || "Problema"));
       btn.addEventListener("click", () => {
         const atuais = lerProblemas();
+        const alvo = atuais[i];
         atuais.splice(i, 1);
         gravarProblemas(atuais);
+        if (alvo && alvo.id) nuvemApagar(alvo.id);
         renderAdminProblemas();
       });
       li.append(info, btn);
@@ -233,6 +273,7 @@
   if (limparProblemasBtn) {
     limparProblemasBtn.addEventListener("click", () => {
       gravarProblemas([]);
+      nuvemLimpar();
       renderAdminProblemas();
     });
   }
@@ -279,13 +320,28 @@
   }
 
   let ultimoJSON = JSON.stringify(lerProblemas());
-  let ultimoFingerprint = "";
+  const notificados = new Set();
 
   function novidadePrincipal(aviso) {
     return (aviso.quando || "") + "|" + (aviso.local || "") + "|" + (aviso.tipo || "");
   }
 
-  function verificarNovos(aviso) {
+  function avisarNovos(novos) {
+    if (!novos || !novos.length) return;
+    const pendentes = novos.filter((p) => !notificados.has(novidadePrincipal(p)));
+    if (!pendentes.length) return;
+    pendentes.forEach((p) => notificados.add(novidadePrincipal(p)));
+    if (!(drawer && drawer.classList.contains("aberta"))) {
+      naoLidos += pendentes.length;
+      atualizarBadge();
+    }
+    pendentes.slice(0, 3).forEach((n) => {
+      mostrarToast(n);
+      notificarSistema(n);
+    });
+  }
+
+  function verificarNovos() {
     const lista = lerProblemas();
     const json = JSON.stringify(lista);
     if (!sessaoAtiva()) {
@@ -294,23 +350,34 @@
     }
     if (json === ultimoJSON) return;
 
-    let diff = lista.length;
-    try { diff = lista.length - (JSON.parse(ultimoJSON).length || 0); } catch (e) {}
+    let antes = [];
+    try { antes = JSON.parse(ultimoJSON); } catch (e) {}
     ultimoJSON = json;
 
     renderAdminProblemas();
-    if (!lista.length || diff <= 0) return;
 
-    const novo = aviso || lista[0];
-    if (novidadePrincipal(novo) === ultimoFingerprint) return; // já avisado por outra via
-    ultimoFingerprint = novidadePrincipal(novo);
+    const fpa = new Set(antes.map(novidadePrincipal));
+    const novos = lista.filter((p) => !fpa.has(novidadePrincipal(p)));
+    avisarNovos(novos);
+  }
 
-    if (!(drawer && drawer.classList.contains("aberta"))) {
-      naoLidos += diff;
-      atualizarBadge();
+  /* ---------- Nuvem: sincroniza a cada 5s entre computadores ---------- */
+  let sincronizando = false;
+  async function sincronizarProblemas() {
+    const nuvem = await nuvemGet();
+    if (nuvem === null) return; // sem nuvem ou offline: usa apenas o navegador
+    const locais = lerProblemas();
+    const fpLocais = new Set(locais.map(fpProblema));
+    const novos = nuvem.filter((p) => !fpLocais.has(fpProblema(p)));
+    const fpNuvem = new Set(nuvem.map(fpProblema));
+    const lista = nuvem.slice();
+    locais.forEach((p) => { if (!fpNuvem.has(fpProblema(p))) lista.push(p); });
+    lista.sort((a, b) => tsProblema(b) - tsProblema(a));
+    if (JSON.stringify(lista) !== JSON.stringify(locais)) gravarProblemas(lista);
+    if (sessaoAtiva() && novos.length) {
+      renderAdminProblemas();
+      avisarNovos(novos);
     }
-    mostrarToast(novo);
-    notificarSistema(novo);
   }
 
   function construtorIcone() {
@@ -365,7 +432,7 @@
   window.addEventListener("storage", (e) => {
     if (e.key === CHAVE_PROBLEMAS) verificarNovos();
   });
-  window.addEventListener("cadaGota:problema", (e) => verificarNovos(e.detail || undefined));
+  window.addEventListener("cadaGota:problema", () => verificarNovos());
   setInterval(() => verificarNovos(), 3000);
 
   /* ---------- Painel integrado (index.html) ---------- */
@@ -427,6 +494,19 @@
   }
 
   atualizarBtnNotificar();
+  atualizarStatusNuvem();
+
+  if (NUVEM) {
+    sincronizarProblemas().catch(() => {});
+    setInterval(() => {
+      if (sincronizando) return;
+      sincronizando = true;
+      sincronizarProblemas().then(
+        () => { sincronizando = false; },
+        () => { sincronizando = false; }
+      );
+    }, 5000);
+  }
 
   if (sessaoAtiva()) {
     entrar();

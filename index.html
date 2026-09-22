@@ -215,7 +215,7 @@
         <button class="botao botao-primario" type="submit">Enviar aviso ao administrador</button>
       </form>
       <p class="reportar-ok" id="reportar-ok" hidden>✅ Aviso enviado! Obrigado por ajudar a economizar água. O problema já aparece no painel do administrador.</p>
-      <p class="fonte-mini reportar-nota">💡 O aviso fica registrado neste navegador e aparece na página do administrador (admin.html).</p>
+      <p class="fonte-mini reportar-nota">💡 O aviso vai direto para o painel do administrador — com a nuvem ativada, chega a qualquer computador.</p>
     </div>
   </div>
 </section>
@@ -671,7 +671,8 @@
 
     <div class="admin-grupo">
       <h2>Problemas comunicados (<span id="admin-problemas-count">0</span>) <span class="selo selo-ficticio">em tempo real</span></h2>
-      <p class="fonte-mini">Avisos enviados pelos alunos nesta página. Novos avisos aparecem aqui e notificam na tela e no computador (mesmo navegador).</p>
+      <p class="fonte-mini">Avisos enviados pelos alunos nesta página. Novos avisos aparecem aqui e notificam na tela e no computador.</p>
+      <p class="fonte-mini" id="admin-sync-status">Carregando sincronização…</p>
       <ul class="admin-lista-frases" id="admin-problemas-lista"></ul>
       <p class="fonte-mini" id="admin-problemas-vazio">Nenhum problema comunicado ainda.</p>
       <button class="botao botao-secundario botao-pequeno" id="admin-limpar-problemas" type="button">Limpar avisos</button>
@@ -690,6 +691,7 @@
 
 <button class="voltar-topo" id="voltar-topo" type="button" aria-label="Voltar ao topo da página" hidden>↑</button>
 
+<script src="config.js"></script>
 <script src="script.js"></script>
 <script src="admin-core.js"></script>
 </body>

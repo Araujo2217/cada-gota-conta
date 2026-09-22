@@ -370,6 +370,27 @@
     try { localStorage.setItem(CHAVE_PROBLEMAS, JSON.stringify(v)); } catch (e) {}
   }
 
+  /* Nuvem (Firebase RTDB) — envia o aviso para chegar em qualquer computador */
+  const NUVEM = ((typeof window !== "undefined") &&
+    window.CADA_GOTA_CONFIG && window.CADA_GOTA_CONFIG.rtdb) || "";
+
+  async function enviarProblemaNuvem(p) {
+    if (!NUVEM) return null;
+    try {
+      const r = await fetch(NUVEM + "/problemas.json", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          quando: p.quando, ts: p.ts, local: p.local,
+          tipo: p.tipo, descricao: p.descricao, nome: p.nome
+        })
+      });
+      if (!r.ok) return null;
+      const j = await r.json();
+      return (j && j.name) ? j.name : null;
+    } catch (e) { return null; }
+  }
+
   const reportarForm = $("#reportar-form");
   const reportarErro = $("#reportar-erro");
   const reportarOk = $("#reportar-ok");
@@ -384,22 +405,32 @@
       return;
     }
     reportarErro.hidden = true;
-    const novos = lerProblemas();
-    novos.unshift({
-      quando: new Date().toLocaleString("pt-BR", {
+    const agora = new Date();
+    const novoItem = {
+      id: "",
+      quando: agora.toLocaleString("pt-BR", {
         day: "2-digit",
         month: "2-digit",
         year: "numeric",
         hour: "2-digit",
         minute: "2-digit"
       }),
+      ts: agora.getTime(),
       local: local,
       tipo: tipo,
       descricao: $("#reportar-desc").value.trim(),
       nome: $("#reportar-nome").value.trim()
-    });
+    };
+    const novos = lerProblemas();
+    novos.unshift(novoItem);
     gravarProblemas(novos);
-    window.dispatchEvent(new CustomEvent("cadaGota:problema", { detail: novos[0] }));
+    window.dispatchEvent(new CustomEvent("cadaGota:problema", { detail: novoItem }));
+    enviarProblemaNuvem(novoItem).then((id) => {
+      if (!id) return;
+      const lista = lerProblemas();
+      const alvo = lista.find((p) => p.ts === novoItem.ts && !p.id);
+      if (alvo) { alvo.id = id; gravarProblemas(lista); }
+    });
     reportarForm.reset();
     reportarOk.hidden = false;
     setTimeout(() => { reportarOk.hidden = true; }, 9000);
