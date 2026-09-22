@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cada Gota Conta! — Desperdício de água nas escolas</title>
+<meta name="description" content="Site educativo sobre desperdício de água nas escolas: dados com fontes, dicas práticas, desafio interativo, calculadora de economia e quiz.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💧</text></svg>">
+</head>
+<body>
+
+<a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
+
+<!-- ===================== MENU FIXO ===================== -->
+<header class="menu-fixo">
+  <nav class="nav container" aria-label="Navegação principal">
+    <a class="marca" href="#inicio">
+      <svg class="marca-icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 2.5s6.5 7 6.5 11.4A6.5 6.5 0 0 1 12 20.5a6.5 6.5 0 0 1-6.5-6.6C5.5 9.5 12 2.5 12 2.5z" fill="currentColor"/>
+      </svg>
+      <span>Cada Gota Conta</span>
+    </a>
+
+    <button class="btn-menu" id="btn-menu" aria-expanded="false" aria-controls="lista-nav" aria-label="Abrir menu de navegação">
+      <span class="linha-menu" aria-hidden="true"></span>
+      <span class="linha-menu" aria-hidden="true"></span>
+      <span class="linha-menu" aria-hidden="true"></span>
+    </button>
+
+    <ul class="lista-nav" id="lista-nav">
+      <li><a href="#inicio">Início</a></li>
+      <li><a href="#problema">O problema</a></li>
+      <li><a href="#sabia">Você sabia?</a></li>
+      <li><a href="#mapa">Onde desperdiça</a></li>
+      <li><a href="#ajudar">Como ajudar</a></li>
+      <li><a href="#desafio">Desafio</a></li>
+      <li><a href="#calculadora">Calculadora</a></li>
+      <li><a href="#campanha">Campanha</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="conteudo">
+
+<!-- ===================== 1. PÁGINA INICIAL ===================== -->
+<section class="hero" id="inicio">
+  <div class="container hero-interno">
+    <div class="hero-texto reveal">
+      <p class="etiqueta">Projeto escolar de conscientização ambiental 🌎</p>
+      <h1>Cada Gota <span class="destaque-agua">Conta!</span></h1>
+      <p class="subtitulo">Combater o desperdício de água começa na escola.</p>
+      <p class="hero-recado">
+        Água potável é um recurso finito e não chega igual para todo mundo. Na escola, usamos água o dia
+        inteiro — na limpeza, na cozinha, nos banheiros e no pátio. Cada torneira mal fechada é água que
+        foi captada, tratada e bombeada sendo jogada fora. Economizar aqui vira hábito em casa e na cidade.
+      </p>
+      <a class="botao botao-primario" href="#problema">Descubra como ajudar</a>
+
+      <ul class="hero-numeros" aria-label="Números que mostram a importância do tema">
+        <li>
+          <strong class="numero" data-contador="40" data-sufixo="%">40%</strong>
+          <span>da água tratada se perde nas redes brasileiras <em>(SINISA, 2024)</em></span>
+        </li>
+        <li>
+          <strong class="numero" data-contador="2.1" data-decimais="1" data-sufixo=" bi">2,1 bi</strong>
+          <span>de pessoas ainda sem água potável segura <em>(OMS/UNICEF, 2025)</em></span>
+        </li>
+        <li>
+          <strong class="numero" data-contador="11356" data-sufixo=" L">11.356 L</strong>
+          <span>perdidos por ano só com 1 torneira pingando <em>(US EPA)</em></span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="hero-arte reveal" role="img" aria-label="Ilustração de uma escola com árvores, um bebedouro e gotas d'água flutuando ao redor">
+      <svg viewBox="0 0 520 440" class="svg-escola" aria-hidden="true" focusable="false">
+        <!-- céu / fundo -->
+        <circle cx="260" cy="215" r="200" fill="#dff1fb"/>
+        <circle cx="260" cy="215" r="200" fill="none" stroke="#b8e2f5" stroke-width="4"/>
+        <!-- nuvens -->
+        <g fill="#ffffff" opacity=".95">
+          <ellipse cx="120" cy="80" rx="46" ry="22"/>
+          <ellipse cx="150" cy="72" rx="30" ry="18"/>
+          <ellipse cx="400" cy="60" rx="40" ry="18"/>
+          <ellipse cx="425" cy="54" rx="26" ry="14"/>
+        </g>
+        <!-- sol -->
+        <circle cx="66" cy="176" r="30" fill="#ffd35c"/>
+        <!-- gramado -->
+        <ellipse cx="260" cy="392" rx="230" ry="42" fill="#bfe8cd"/>
+        <!-- prédio da escola -->
+        <g>
+          <rect x="140" y="180" width="240" height="170" rx="10" fill="#ffffff" stroke="#0b5f92" stroke-width="5"/>
+          <polygon points="130,180 260,116 390,180" fill="#0b5f92"/>
+          <rect x="236" y="252" width="48" height="98" rx="6" fill="#0b5f92"/>
+          <circle cx="248" cy="302" r="5" fill="#ffd35c"/>
+          <circle cx="272" cy="302" r="5" fill="#ffd35c"/>
+          <!-- janelas -->
+          <g fill="#bfe6fa" stroke="#0b5f92" stroke-width="4">
+            <rect x="164" y="204" width="46" height="40" rx="5"/>
+            <rect x="310" y="204" width="46" height="40" rx="5"/>
+            <rect x="164" y="264" width="46" height="40" rx="5"/>
+            <rect x="310" y="264" width="46" height="40" rx="5"/>
+          </g>
+          <!-- placa da escola -->
+          <rect x="216" y="140" width="88" height="30" rx="8" fill="#ffffff" stroke="#0b5f92" stroke-width="4"/>
+          <text x="260" y="161" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="16" font-weight="600" fill="#0b5f92">ESCOLA</text>
+          <!-- mastro -->
+          <line x1="390" y1="180" x2="390" y2="118" stroke="#0b5f92" stroke-width="5" stroke-linecap="round"/>
+          <polygon points="390,120 424,132 390,144" fill="#16a05b"/>
+        </g>
+        <!-- árvores -->
+        <g>
+          <rect x="88" y="330" width="14" height="40" rx="5" fill="#8a5a2b"/>
+          <circle cx="95" cy="316" r="34" fill="#16a05b"/>
+          <circle cx="74" cy="332" r="22" fill="#1fb96a"/>
+          <rect x="418" y="336" width="12" height="36" rx="5" fill="#8a5a2b"/>
+          <circle cx="424" cy="322" r="30" fill="#16a05b"/>
+          <circle cx="446" cy="334" r="20" fill="#1fb96a"/>
+        </g>
+        <!-- torneira -->
+        <g transform="translate(60,236)">
+          <rect x="0" y="0" width="16" height="64" rx="6" fill="#5a7d8f"/>
+          <rect x="10" y="-4" width="52" height="14" rx="7" fill="#5a7d8f"/>
+          <rect x="44" y="8" width="18" height="12" rx="5" fill="#486677"/>
+          <circle cx="53" cy="-6" r="12" fill="#ffd35c" stroke="#486677" stroke-width="4"/>
+        </g>
+        <!-- gotas animadas -->
+        <g class="gotas">
+          <g class="gota gota-1" transform="translate(118,286)">
+            <path d="M0,-16 C7,-6 12,0 12,6 A12,12 0 0 1 -12,6 C-12,0 -7,-6 0,-16 Z" fill="#38a7e0"/>
+          </g>
+          <g class="gota gota-2" transform="translate(150,320) scale(.7)">
+            <path d="M0,-16 C7,-6 12,0 12,6 A12,12 0 0 1 -12,6 C-12,0 -7,-6 0,-16 Z" fill="#16a05b"/>
+          </g>
+          <g class="gota gota-3" transform="translate(430,180) scale(.9)">
+            <path d="M0,-16 C7,-6 12,0 12,6 A12,12 0 0 1 -12,6 C-12,0 -7,-6 0,-16 Z" fill="#38a7e0"/>
+          </g>
+        </g>
+        <!-- gota mascote -->
+        <g transform="translate(410,368)">
+          <path d="M0,-46 C20,-24 34,-8 34,8 A34,34 0 0 1 -34,8 C-34,-8 -20,-24 0,-46 Z" fill="#38a7e0"/>
+          <circle cx="-11" cy="4" r="5.5" fill="#ffffff"/>
+          <circle cx="11" cy="4" r="5.5" fill="#ffffff"/>
+          <circle cx="-9.5" cy="5.5" r="2.6" fill="#08324a"/>
+          <circle cx="12.5" cy="5.5" r="2.6" fill="#08324a"/>
+          <path d="M-9,16 Q0,24 9,16" stroke="#08324a" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+          <circle cx="-22" cy="13" r="4.5" fill="#ff9fb0" opacity=".7"/>
+          <circle cx="22" cy="13" r="4.5" fill="#ff9fb0" opacity=".7"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="ondulacao" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,40 C240,90 480,10 720,45 C960,80 1200,20 1440,55 L1440,90 L0,90 Z" fill="#ffffff"></path></svg>
+  </div>
+</section>
+
+<!-- ===================== 2. O PROBLEMA ===================== -->
+<section class="secao" id="problema">
+  <div class="container">
+    <header class="cabecalho-secao reveal">
+      <p class="etiqueta">Entenda a situação</p>
+      <h2>O problema do desperdício 💧</h2>
+      <p class="secao-lead">Desperdício de água é usar mais do que o necessário ou deixar água em bom estado escapar sem propósito. Na escola, ele quase nunca é intencional — são hábitos e pequenos vazamentos que se acumulam.</p>
+    </header>
+
+    <div class="grade grade-3 reveal">
+      <article class="card card-exemplo">
+        <span class="card-icone" aria-hidden="true">🚰</span>
+        <h3>Torneiras abertas</h3>
+        <p>Abertas ao ensaboar as mãos, ao escovar os dentes no laboratório de ciências ou simplesmente esquecidas depois do uso.</p>
+      </article>
+      <article class="card card-exemplo">
+        <span class="card-icone" aria-hidden="true">🔍</span>
+        <h3>Vazamentos</h3>
+        <p>Goteiras e conexões folgadas parecem pequenas, mas somam litros a cada minuto, dia após dia.</p>
+      </article>
+      <article class="card card-exemplo">
+        <span class="card-icone" aria-hidden="true">🚽</span>
+        <h3>Descargas com problemas</h3>
+        <p>Vasos que não fecham bem ou descargas acionadas mais de uma vez desperdiçam litros em segundos.</p>
+      </article>
+      <article class="card card-exemplo">
+        <span class="card-icone" aria-hidden="true">🌿</span>
+        <h3>Mangueiras inadequadas</h3>
+        <p>Lavar o pátio o dia inteiro com a mangueira ligada gasta muito mais do que a limpeza realmente precisa.</p>
+      </article>
+      <article class="card card-exemplo">
+        <span class="card-icone" aria-hidden="true">🧽</span>
+        <h3>Desperdício na limpeza</h3>
+        <p>Encher baldes além do necessário e deixar a água correr enquanto se esfrega o chão.</p>
+      </article>
+      <article class="card card-destaque">
+        <span class="card-icone" aria-hidden="true">⚠️</span>
+        <h3>O impacto soma</h3>
+        <p>Uma escola usa água todos os dias: <strong>banheiros, cozinha, limpeza, jardim e bebedouros</strong>. Pequenos desperdícios, repetidos por centenas de pessoas, viram um volume enorme.</p>
+      </article>
+    </div>
+
+    <div class="impactos reveal">
+      <article class="impacto impacto-ambiental">
+        <h3><span aria-hidden="true">🌎</span> Impacto ambiental</h3>
+        <ul class="lista-marcada">
+          <li>Água doce disponível para nós é pouca: só cerca de <strong>2,5% da água da Terra é doce</strong> e a maior parte está congelada <em>(USGS)</em>.</li>
+          <li>Tratar e bombear água gasta <strong>energia</strong> e produtos químicos — desperdiçar água também polui mais.</li>
+          <li>Menos água disponível afeta <strong>rios, lagos, animais e plantas</strong> perto da nossa cidade.</li>
+        </ul>
+      </article>
+      <article class="impacto impacto-financeiro">
+        <h3><span aria-hidden="true">💰</span> Impacto financeiro</h3>
+        <ul class="lista-marcada">
+          <li>A escola paga a conta da água: <strong>água desperdiçada é dinheiro desperdiçado</strong> que poderia virar material, esporte e merenda.</li>
+          <li>No Brasil, cerca de <strong>40,3% da água tratada se perde</strong> antes de chegar às torneiras <em>(SINISA, 2024)</em>. O desperdício dentro da escola só aumenta o problema.</li>
+          <li>Custo de reparo de vazamento pequeno é quase sempre <strong>menor</strong> do que meses de água vazando.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 3. VOCÊ SABIA? ===================== -->
+<section class="secao secao-fundo-suave" id="sabia">
+  <div class="container">
+    <header class="cabecalho-secao reveal">
+      <p class="etiqueta">Números que surpreendem</p>
+      <h2>Você sabia? 🤯</h2>
+      <p class="secao-lead">Cada número abaixo tem fonte confiável — clique ou passe o mouse para ver a referência completa no rodapé.</p>
+    </header>
+
+    <div class="grade grade-3 reveal">
+      <article class="card card-dado">
+        <p class="dado-grande">2,1 bilhões</p>
+        <p class="dado-texto">de pessoas — <strong>1 em cada 4 no mundo</strong> — ainda não têm acesso seguro à água potável.</p>
+        <p class="fonte-mini">Fonte: OMS/UNICEF (JMP), relatório de 2025</p>
+      </article>
+      <article class="card card-dado">
+        <p class="dado-grande">40,3%</p>
+        <p class="dado-texto">da água produzida e tratada no Brasil <strong>se perde nas redes</strong> antes de chegar ao usuário.</p>
+        <p class="fonte-mini">Fonte: SINISA 2024 — Ministério das Cidades / SNIS</p>
+      </article>
+      <article class="card card-dado">
+        <p class="dado-grande">11.356 L</p>
+        <p class="dado-texto">é o que <strong>uma torneira pingando 1 gota por segundo</strong> pode desperdiçar em um ano (mais de 3.000 galões).</p>
+        <p class="fonte-mini">Fonte: US EPA — WaterSense, Fix a Leak</p>
+      </article>
+      <article class="card card-dado">
+        <p class="dado-grande">2,5%</p>
+        <p class="dado-texto">da água do planeta é <strong>doce</strong> — e a maior parte está preservada em geleiras e calotas.</p>
+        <p class="fonte-mini">Fonte: USGS — Water Science School</p>
+      </article>
+      <article class="card card-dado">
+        <p class="dado-grande">192 L</p>
+        <p class="dado-texto">por pessoa por dia foi o <strong>consumo médio de água na Grande São Paulo</strong> em 2024.</p>
+        <p class="fonte-mini">Fonte: IAS / Sabesp — Consumo e perdas na RMSP, 2024</p>
+      </article>
+      <article class="card card-dado">
+        <p class="dado-grande">15.400 L</p>
+        <p class="dado-texto">de água são necessários para produzir <strong>1 kg de carne bovina</strong> (a chamada “água virtual”).</p>
+        <p class="fonte-mini">Fonte: Mekonnen &amp; Hoekstra (2012), Water Footprint of Farm Animal Products</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 4. ONDE A ÁGUA É MAIS DESPERDIÇADA ===================== -->
+<section class="secao" id="mapa">
+  <div class="container">
+    <header class="cabecalho-secao reveal">
+      <p class="etiqueta">Explore a escola</p>
+      <h2>Onde a água é mais desperdiçada? 🏫</h2>
+      <p class="secao-lead">Clique (ou use Tab e Enter) em cada espaço da escola para ver exemplos de desperdício e como evitá-los.</p>
+    </header>
+
+    <div class="mapa-caixa reveal">
+      <div class="planta" id="planta">
+        <svg viewBox="0 0 800 500" class="svg-planta" aria-hidden="true" focusable="false">
+          <!-- terreno -->
+          <rect x="0" y="0" width="800" height="500" rx="24" fill="#eaf7ef"/>
+          <!-- prédio -->
+          <rect x="40" y="40" width="720" height="420" rx="20" fill="#ffffff" stroke="#0b5f92" stroke-width="6"/>
+          <!-- corredor -->
+          <rect x="60" y="220" width="680" height="70" fill="#dff1fb"/>
+          <line x1="60" y1="255" x2="740" y2="255" stroke="#9ed4ef" stroke-width="4" stroke-dasharray="14 12"/>
+          <!-- salas de cima -->
+          <g>
+            <rect x="70" y="70" width="150" height="130" rx="12" fill="#e9f6ff" stroke="#8cc7e8" stroke-width="4"/>
+            <rect x="240" y="70" width="170" height="130" rx="12" fill="#fff6e2" stroke="#f0c46b" stroke-width="4"/>
+            <rect x="430" y="70" width="150" height="130" rx="12" fill="#eef1ff" stroke="#9aa8ee" stroke-width="4"/>
+            <rect x="600" y="70" width="130" height="130" rx="12" fill="#e9f6ff" stroke="#8cc7e8" stroke-width="4"/>
+          </g>
+          <!-- área inferior -->
+          <rect x="70" y="310" width="250" height="130" rx="12" fill="#f2f7f4" stroke="#a8c9b4" stroke-width="4"/>
+          <rect x="340" y="310" width="390" height="130" rx="12" fill="#dff4e6" stroke="#7ec89b" stroke-width="4"/>
+          <!-- jardim: canteiros -->
+          <g fill="#7ec89b" opacity=".85">
+            <circle cx="405" cy="345" r="16"/><circle cx="455" cy="380" r="16"/>
+            <circle cx="520" cy="345" r="16"/><circle cx="575" cy="385" r="16"/>
+            <circle cx="655" cy="345" r="16"/><circle cx="700" cy="390" r="16"/>
+          </g>
+          <!-- portas -->
+          <g fill="#0b5f92">
+            <rect x="130" y="196" width="40" height="14" rx="6"/>
+            <rect x="305" y="196" width="40" height="14" rx="6"/>
+            <rect x="485" y="196" width="40" height="14" rx="6"/>
+            <rect x="645" y="196" width="40" height="14" rx="6"/>
+          </g>
+          <!-- símbolos -->
+          <g font-size="34" text-anchor="middle">
+            <text x="145" y="150">🚻</text>
+            <text x="325" y="150">🍽️</text>
+            <text x="505" y="150">🧼</text>
+            <text x="665" y="150">🚰</text>
+            <text x="195" y="390">🧹</text>
+          </g>
+        </svg>
+
+        <button class="hotspot ativo" data-lugar="banheiros" style="left:18.1%; top:22%" aria-pressed="true">🚻 Banheiros</button>
+        <button class="hotspot" data-lugar="cozinha" style="left:40.6%; top:22%" aria-pressed="false">🍽️ Cozinha</button>
+        <button class="hotspot" data-lugar="limpeza" style="left:63.1%; top:22%" aria-pressed="false">🧼 Área de limpeza</button>
+        <button class="hotspot" data-lugar="bebedouro" style="left:83%; top:22%" aria-pressed="false">🥤 Bebedouro</button>
+        <button class="hotspot" data-lugar="torneiras" style="left:25%; top:75%" aria-pressed="false">🚰 Torneiras</button>
+        <button class="hotspot" data-lugar="jardim" style="left:66.8%; top:75%" aria-pressed="false">🌱 Jardins</button>
+      </div>
+
+      <article class="detalhe-lugar" id="detalhe-lugar" tabindex="0" aria-live="polite">
+        <h3 id="detalhe-titulo">🚻 Banheiros</h3>
+        <div class="detalhe-colunas">
+          <div>
+            <h4>Possíveis desperdícios</h4>
+            <ul class="lista-marcada" id="detalhe-perdas"></ul>
+          </div>
+          <div>
+            <h4 class="titulo-verde">Como evitar</h4>
+            <ul class="lista-marcada lista-verde" id="detalhe-dicas"></ul>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 5. COMO PODEMOS AJUDAR ===================== -->
+<section class="secao secao-fundo-suave" id="ajudar">
+  <div class="container">
+    <header class="cabecalho-secao reveal">
+      <p class="etiqueta">Pequenas atitudes, grande diferença</p>
+      <h2>Como podemos ajudar? 💪</h2>
+      <p class="secao-lead">Seis atitudes simples que estudantes e funcionários podem colocar em prática todos os dias.</p>
+    </header>
+
+    <div class="grade grade-3 reveal">
+      <article class="card card-dica">
+        <span class="card-icone" aria-hidden="true">🧼</span>
+        <h3>Feche enquanto ensaboa</h3>
+        <p>Feche a torneira enquanto ensaboa as mãos e reabra só para enxaguar.</p>
+        <span class="selo">Estudantes e funcionários</span>
+      </article>
+      <article class="card card-dica">
+        <span class="card-icone" aria-hidden="true">🚨</span>
+        <h3>Aviso sobre vazamento</h3>
+        <p>Avise imediatamente um professor ou funcionário ao ver goteira, descarga que não fecha ou chão molhado sem motivo.</p>
+        <span class="selo">Todos</span>
+      </article>
+      <article class="card card-dica">
+        <span class="card-icone" aria-hidden="true">🎈</span>
+        <h3>Não brinque com a água</h3>
+        <p>Jogar água, molhar colegas e ligar torneiras “por graça” desperdiça água que outras pessoas precisam.</p>
+        <span class="selo">Estudantes</span>
+      </article>
+      <article class="card card-dica">
+        <span class="card-icone" aria-hidden="true">🧹</span>
+        <h3>Só o necessário na limpeza</h3>
+        <p>Use a quantidade certa de água para lavar o pátio e as salas — balde e rodo vencem a mangueira ligada.</p>
+        <span class="selo">Funcionários</span>
+      </article>
+      <article class="card card-dica">
+        <span class="card-icone" aria-hidden="true">🚰</span>
+        <h3>Nunca deixe torneira aberta</h3>
+        <p>Não saia do local com a torneira correndo e confira os registros antes de fechar a escola.</p>
+        <span class="selo">Todos</span>
+      </article>
+      <article class="card card-dica">
+        <span class="card-icone" aria-hidden="true">📣</span>
+        <h3>Incentive campanhas</h3>
+        <p>Participe e crie campanhas de conscientização: murais, cartazes, chamadas na formatura e jornal escolar.</p>
+        <span class="selo">Todos</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 6. DESAFIO DA ESCOLA ===================== -->
+<section class="secao" id="desafio">
+  <div class="container container-estreito">
+    <header class="cabecalho-secao reveal">
+      <p class="etiqueta">Mão na massa</p>
+      <h2>Desafio: Cada Gota Conta 🏆</h2>
+      <p class="secao-lead">Marque as ações sustentáveis que você realizou hoje. Seu progresso fica salvo neste navegador.</p>
+    </header>
+
+    <div class="desafio-painel reveal">
+      <ul class="lista-checks" id="lista-checks">
+        <li>
+          <label class="check-item">
+            <input type="checkbox" class="check-acao" data-acao="fechei">
+            <span class="caixa-check" aria-hidden="true"></span>
+            <span class="texto-check">✅ Fechei a torneira corretamente.</span>
+          </label>
+        </li>
+        <li>
+          <label class="check-item">
+            <input type="checkbox" class="check-acao" data-acao="avisei">
+            <span class="caixa-check" aria-hidden="true"></span>
+            <span class="texto-check">✅ Avisei sobre um vazamento.</span>
+          </label>
+        </li>
+        <li>
+          <label class="check-item">
+            <input type="checkbox" class="check-acao" data-acao="evitei">
+            <span class="caixa-check" aria-hidden="true"></span>
+            <span class="texto-check">✅ Evitei desperdiçar água.</span>
+          </label>
+        </li>
+        <li>
+          <label class="check-item">
+            <input type="checkbox" class="check-acao" data-acao="incentivei">
+            <span class="caixa-check" aria-hidden="true"></span>
+            <span class="texto-check">✅ Incentivei outra pessoa a economizar água.</span>
+          </label>
+        </li>
+      </ul>
+
+      <div class="progresso-bloco">
+        <div class="progresso-info">
+          <p id="desafio-contador" aria-live="polite"><strong>0 de 4</strong> ações realizadas</p>
+          <button class="botao botao-secundario botao-pequeno" id="btn-reset-desafio" type="button">Recomeçar</button>
+        </div>
+        <div class="barra" role="progressbar" aria-labelledby="desafio-contador" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0" id="barra-desafio">
+          <div class="barra-preenchida" id="barra-desafio-fill" style="width:0%"></div>
+        </div>
+        <p class="mensagem-desafio" id="mensagem-desafio">Marque sua primeira ação para começar! 💧</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 7. CALCULADORA DE ECONOMIA ===================== -->
+<section class="secao secao-fundo-suave" id="calculadora">
+  <div class="container">
+    <header class="cabecalho-secao reveal">
+      <p class="etiqueta">Brinque com os números</p>
+      <h2>Calculadora de economia 🧮</h2>
+      <p class="secao-lead">Informe quanto cada atitude acontece e veja uma <strong>estimativa</strong> de água que pode ser poupada.</p>
+    </header>
+
+    <div class="calculadora reveal">
+      <form class="calc-form" id="calc-form" novalidate>
+        <div class="calc-linha">
+          <label for="calc-dentes">
+            <span class="calc-nome">🪥 Escovar os dentes com a torneira aberta</span>
+            <span class="calc-param">≈ 15 L desperdiçados por vez <em>(US EPA)</em></span>
+          </label>
+          <div class="calc-input">
+            <input type="number" id="calc-dentes" min="0" max="50" step="1" value="2" inputmode="numeric">
+            <span>vezes/dia</span>
+          </div>
+        </div>
+
+        <div class="calc-linha">
+          <label for="calc-minutos">
+            <span class="calc-nome">🚿 Torneira correndo sem necessidade (lavar mãos, encher copo)</span>
+            <span class="calc-param">≈ 3,8 L por minuto <em>(USGS: torneira de pia ≈ 1 gal/min)</em></span>
+          </label>
+          <div class="calc-input">
+            <input type="number" id="calc-minutos" min="0" max="600" step="1" value="5" inputmode="numeric">
+            <span>minutos/dia</span>
+          </div>
+        </div>
+
+        <div class="calc-linha">
+          <label for="calc-vazamento">
+            <span class="calc-nome">💧 Torneiras com vazamento de 1 gota por segundo</span>
+            <span class="calc-param">≈ 31 L por dia cada uma <em>(US EPA: +3.000 gal/ano)</em></span>
+          </label>
+          <div class="calc-input">
+            <input type="number" id="calc-vazamento" min="0" max="50" step="1" value="0" inputmode="numeric">
+            <span>nº de torneiras</span>
+          </div>
+        </div>
+      </form>
+
+      <div class="calc-resultado" aria-live="polite">
+        <p class="calc-rotulo">Estimativa de água gasta (ou que pode ser economizada) por dia:</p>
+        <p class="calc-total"><strong id="calc-total-dia">0</strong> litros/dia</p>
+        <div class="calc-grades">
+          <div class="calc-mini">
+            <p class="calc-mini-num" id="calc-total-mes">0 L</p>
+            <p>em 30 dias</p>
+          </div>
+          <div class="calc-mini">
+            <p class="calc-mini-num" id="calc-garrafas">0</p>
+            <p>garrafas de 1,5 L por dia</p>
+          </div>
+          <div class="calc-mini">
+            <p class="calc-mini-num" id="calc-pessoas">0</p>
+            <p>dias de 1 pessoa na Grande SP <em>(192 L/dia — IAS/Sabesp, 2024)</em></p>
+          </div>
+        </div>
+        <p class="aviso">⚠️ Valores são <strong>estimativas educativas</strong> para comparação, não medições reais. Os parâmetros vêm das fontes citadas em <a href="#fontes">Fontes e referências</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 8. CAMPANHA ESCOLAR ===================== -->
+<section class="secao" id="campanha">
+  <div class="container">
+    <header class="cabecalho-secao reveal">
+      <p class="etiqueta">Campanha fictícia deste projeto</p>
+      <h2>Nossa Escola Economiza Água 📣</h2>
+      <p class="secao-lead">Cartazes, frases, metas e um mural para registrar as ações da turma.</p>
+    </header>
+
+    <div class="grade grade-3 reveal">
+      <article class="cartaz cartaz-1">
+        <p class="cartaz-topo">CAMPANHA</p>
+        <p class="cartaz-frase">Se a torneira escorrer,<br><span>fechar vai bastar!</span></p>
+        <span class="cartaz-emoji" aria-hidden="true">🚰</span>
+        <p class="cartaz-rodape">Nossa Escola Economiza Água</p>
+      </article>
+      <article class="cartaz cartaz-2">
+        <p class="cartaz-topo">LEMBRE-SE</p>
+        <p class="cartaz-frase">Água não é infinita:<br><span>a Terra só tem 2,5% de doce!</span></p>
+        <span class="cartaz-emoji" aria-hidden="true">🌍</span>
+        <p class="cartaz-rodape">Fonte: USGS</p>
+      </article>
+      <article class="cartaz cartaz-3">
+        <p class="cartaz-topo">DESAFIO DA TURMA</p>
+        <p class="cartaz-frase">1 torneira pingando =<br><span>11.356 L por ano</span></p>
+        <span class="cartaz-emoji" aria-hidden="true">💧</span>
+        <p class="cartaz-rodape">Avise, repare, economize</p>
+      </article>
+    </div>
+
+    <div class="campanha-meio reveal">
+      <div class="frases-caixa">
+        <h3>Frases de conscientização</h3>
+        <ul class="frases-lista" id="frases-lista"></ul>
+      </div>
+
+      <div class="metas-caixa">
+        <h3>Metas da campanha <span class="selo selo-ficticio">fictícias</span></h3>
+
+        <div id="meta-lista"></div>
+
+        <p class="fonte-mini">Metas ilustrativas criadas para este projeto escolar.</p>
+      </div>
+    </div>
+
+    <div class="mural reveal">
+      <h3>Registro de ações realizadas</h3>
+      <p class="secao-lead">Anote aqui o que a turma fez hoje (o registro fica salvo neste navegador).</p>
+      <form class="mural-form" id="mural-form">
+        <label class="oculto" for="mural-input">Descreva a ação realizada</label>
+        <input type="text" id="mural-input" placeholder="Ex.: encontramos e reportamos uma torneira pingando no 2º andar" maxlength="140" required>
+        <button class="botao botao-primario" type="submit">Registrar</button>
+      </form>
+      <ul class="mural-lista" id="mural-lista" aria-live="polite"></ul>
+      <p class="mural-vazio" id="mural-vazio">Nenhuma ação registrada ainda. Seja o primeiro! ✍️</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 9. QUIZ ===================== -->
+<section class="secao secao-fundo-suave" id="quiz">
+  <div class="container container-estreito">
+    <header class="cabecalho-secao reveal">
+      <p class="etiqueta">Teste o que aprendeu</p>
+      <h2>Quiz: quanto você sabe sobre água? 🧠</h2>
+      <p class="secao-lead">8 perguntas rápidas. Após cada resposta você vê a explicação e, no final, a pontuação.</p>
+    </header>
+
+    <div class="quiz-painel reveal">
+      <div class="quiz-topo">
+        <p id="quiz-progresso">Pergunta 1 de 8</p>
+        <div class="barra barra-quiz">
+          <div class="barra-preenchida" id="barra-quiz-fill" style="width:12.5%"></div>
+        </div>
+        <p class="quiz-pontos">Pontos: <strong id="quiz-pontos">0</strong></p>
+      </div>
+
+      <div id="quiz-conteudo">
+        <h3 class="quiz-pergunta" id="quiz-pergunta">—</h3>
+        <div class="quiz-alternativas" id="quiz-alternativas" role="group" aria-label="Alternativas de resposta"></div>
+        <div class="quiz-feedback" id="quiz-feedback" aria-live="polite" hidden></div>
+        <button class="botao botao-primario" id="quiz-proxima" type="button" hidden>Próxima pergunta →</button>
+      </div>
+
+      <div id="quiz-final" hidden>
+        <p class="quiz-emoji-final" id="quiz-emoji-final" aria-hidden="true">🎉</p>
+        <h3 class="quiz-pergunta" id="quiz-titulo-final">Resultado</h3>
+        <p class="quiz-resultado" id="quiz-resultado"></p>
+        <p class="quiz-mensagem" id="quiz-mensagem-final"></p>
+        <button class="botao botao-secundario" id="quiz-reiniciar" type="button">Refazer o quiz</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== 10. RODAPÉ ===================== -->
+<footer class="rodape" id="rodape">
+  <div class="ondulacao ondulacao-rodape" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,50 C240,10 480,80 720,50 C960,20 1200,70 1440,40 L1440,0 L0,0 Z" fill="#f4fbfe"></path></svg>
+  </div>
+
+  <div class="container rodape-grade">
+    <div class="rodape-bloco rodape-destaque">
+      <p class="rodape-frase">“Cada gota conta.<br><span>Faça a sua parte!”</span></p>
+      <p class="rodape-sub">Projeto escolar de conscientização ambiental sobre o desperdício de água nas escolas.</p>
+    </div>
+
+    <nav class="rodape-bloco" aria-label="Links das seções">
+      <h2>Seções</h2>
+      <ul>
+        <li><a href="#inicio">Página inicial</a></li>
+        <li><a href="#problema">O problema</a></li>
+        <li><a href="#sabia">Você sabia?</a></li>
+        <li><a href="#mapa">Onde a água é desperdiçada</a></li>
+        <li><a href="#ajudar">Como podemos ajudar</a></li>
+        <li><a href="#desafio">Desafio da escola</a></li>
+        <li><a href="#calculadora">Calculadora de economia</a></li>
+        <li><a href="#campanha">Campanha escolar</a></li>
+        <li><a href="#quiz">Quiz</a></li>
+      </ul>
+    </nav>
+
+    <div class="rodape-bloco" id="fontes">
+      <h2>Fontes e referências</h2>
+      <ul class="lista-fontes">
+        <li><a href="https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/saneamento/sinisa/resultados-sinisa" target="_blank" rel="noopener">SINISA 2024 — Ministério das Cidades / SNIS</a> — perdas na distribuição de água no Brasil.</li>
+        <li><a href="https://www.unicef.org/brazil/comunicados-de-imprensa/1-em-cada-4-pessoas-em-todo-o-mundo-ainda-nao-tem-acesso-agua-potavel" target="_blank" rel="noopener">OMS/UNICEF — JMP, Progress on Drinking Water (2025)</a> — 2,1 bilhões de pessoas sem água potável gerenciada com segurança.</li>
+        <li><a href="https://www.usgs.gov/special-topics/water-science-school" target="_blank" rel="noopener">USGS — Water Science School</a> — água doce na Terra e vazão de torneiras domésticas.</li>
+        <li><a href="https://www.epa.gov/watersense/fix-leak-week" target="_blank" rel="noopener">US EPA — WaterSense, Fix a Leak Week</a> — torneira pingando 1 gota/s: mais de 3.000 galões/ano.</li>
+        <li><a href="https://www.epa.gov/watersense" target="_blank" rel="noopener">US EPA — WaterSense</a> — desperdício ao escovar os dentes com a torneira aberta.</li>
+        <li><a href="https://www.aguaesaneamento.org.br/publicacao/consumo-e-perdas-de-agua-na-regiao-metropolitana-de-sao-paulo-2013-2024/" target="_blank" rel="noopener">IAS/Sabesp — Consumo e perdas de água na RMSP (2013–2024)</a> — consumo per capita de 192 L/hab/dia em 2024.</li>
+        <li><a href="https://www.waterfootprint.org/resources/Mekonnen-Hoekstra-2012-WaterFootprintFarmAnimalProducts_1.pdf" target="_blank" rel="noopener">Mekonnen &amp; Hoekstra (2012) — The Water Footprint of Farm Animal Products</a> — pegada hídrica de 15.400 L por kg de carne bovina.</li>
+        <li><a href="https://tratabrasil.org.br" target="_blank" rel="noopener">Trata Brasil — Estudo de Perdas na Distribuição</a> — dados complementares de perdas no Brasil.</li>
+      </ul>
+    </div>
+
+    <div class="rodape-bloco">
+      <h2>Sobre o projeto</h2>
+      <p>Site criado como projeto escolar de educação ambiental, em formato de campanha de conscientização. Todos os dados apresentados possuem fonte indicada — nenhum número foi inventado.</p>
+      <p class="rodape-nota">As metas da campanha “Nossa Escola Economiza Água” são fictícias e servem apenas de exemplo para a atividade.</p>
+      <p><button class="link-admin" id="btn-admin" type="button">🔐 Área do administrador</button></p>
+    </div>
+  </div>
+
+  <p class="rodape-copy">Feito com 💧 por estudantes, professores e famílias • © <span id="ano"></span> Cada Gota Conta</p>
+</footer>
+
+<button class="voltar-topo" id="voltar-topo" type="button" aria-label="Voltar ao topo da página" hidden>↑</button>
+
+<!-- ===================== PAINEL DO ADMINISTRADOR ===================== -->
+<div class="modal-fundo" id="modal-admin" hidden>
+  <div class="modal-caixa" role="dialog" aria-modal="true" aria-labelledby="admin-titulo">
+    <button class="modal-fechar" id="admin-fechar" type="button" aria-label="Fechar painel do administrador">✕</button>
+
+    <div id="admin-login">
+      <h2 id="admin-titulo">🔐 Área do administrador</h2>
+      <p class="secao-lead">Entre para editar as metas e frases da campanha e gerenciar o mural de ações.</p>
+      <form id="admin-login-form">
+        <div class="campo-form">
+          <label for="admin-usuario">Usuário</label>
+          <input type="text" id="admin-usuario" autocomplete="username" required>
+        </div>
+        <div class="campo-form">
+          <label for="admin-senha">Senha</label>
+          <input type="password" id="admin-senha" autocomplete="current-password" required>
+        </div>
+        <p class="admin-erro" id="admin-erro" hidden>Usuário ou senha incorretos. Tente novamente.</p>
+        <button class="botao botao-primario" type="submit">Entrar</button>
+      </form>
+      <p class="fonte-mini">Projeto escolar: usuário <strong>admin</strong> · senha <strong>cada-gota-2026</strong> ⚠️ A verificação acontece no navegador — não é segurança real, apenas demonstração.</p>
+    </div>
+
+    <div id="admin-painel" hidden>
+      <h2 id="admin-titulo-painel">⚙️ Painel do administrador</h2>
+      <p class="secao-lead">Edite o conteúdo da campanha. As alterações ficam salvas neste navegador e são exibidas na página.</p>
+
+      <h3>Metas da campanha</h3>
+      <div id="admin-metas"></div>
+
+      <h3>Frases de conscientização</h3>
+      <form class="mural-form" id="admin-frase-form">
+        <label class="oculto" for="admin-frase-input">Nova frase de conscientização</label>
+        <input type="text" id="admin-frase-input" placeholder="Digite uma nova frase…" maxlength="120" required>
+        <button class="botao botao-secundario botao-pequeno" type="submit">Adicionar</button>
+      </form>
+      <ul class="admin-lista-frases" id="admin-frases"></ul>
+
+      <h3>Ações registradas no mural (<span id="admin-mural-count">0</span>)</h3>
+      <ul class="admin-lista-frases" id="admin-mural-lista"></ul>
+      <p class="fonte-mini" id="admin-mural-vazio">Nenhuma ação registrada ainda.</p>
+      <button class="botao botao-secundario botao-pequeno" id="admin-limpar-mural" type="button">Limpar mural</button>
+
+      <div class="admin-acoes">
+        <button class="botao botao-secundario botao-pequeno" id="admin-restaurar" type="button">Restaurar padrões</button>
+        <button class="botao botao-secundario botao-pequeno" id="admin-sair" type="button">Sair</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
