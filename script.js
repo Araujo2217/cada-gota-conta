@@ -6,7 +6,8 @@
 
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
-  const semAnimacao = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let semAnimacao = false;
+  try { semAnimacao = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
 
   /* ---------- Ano no rodapé ---------- */
   $("#ano").textContent = new Date().getFullYear();
@@ -79,6 +80,12 @@
   } else {
     reveals.forEach((r) => r.classList.add("visivel"));
   }
+
+  /* Garantia contra página em branco: se o observer não disparar
+     (webview, iframe, layout incomum), revela tudo após 2,5s. */
+  setTimeout(() => {
+    reveals.forEach((r) => r.classList.add("visivel"));
+  }, 2500);
 
   /* ============================================================
      LINK ATIVO NO MENU CONFORME A ROLAGEM
