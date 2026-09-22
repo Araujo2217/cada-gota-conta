@@ -12,5 +12,5 @@
    Depois copie a URL do banco e cole abaixo.
    ============================================================ */
 window.CADA_GOTA_CONFIG = {
-  rtdb: "" // <-- cole a URL aqui (ex.: "https://xxx-default-rtdb.firebaseio.com")
+  rtdb: "https://cada-gota-conta-1c75a-default-rtdb.firebaseio.com" // <-- cole a URL aqui (ex.: "https://xxx-default-rtdb.firebaseio.com")
 };
