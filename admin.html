@@ -54,6 +54,7 @@
   <section id="admin-painel" hidden aria-live="polite">
     <div class="admin-topo-painel">
       <h1>⚙️ Painel do administrador</h1>
+      <button class="botao botao-secundario botao-pequeno" id="admin-notificar" type="button">🔔 Ativar notificações do computador</button>
       <button class="botao botao-secundario botao-pequeno" id="admin-sair" type="button">Sair</button>
     </div>
     <p class="secao-lead">As alterações ficam salvas <strong>neste navegador</strong> e aparecem no site público acessado por ele. Para valer para <strong>todos os visitantes</strong>, edite os arquivos e envie ao GitHub (ou peça ajuda).</p>
@@ -76,8 +77,8 @@
     </div>
 
     <div class="admin-grupo">
-      <h2>Problemas comunicados (<span id="admin-problemas-count">0</span>)</h2>
-      <p class="fonte-mini">Avisos enviados pelos alunos na página inicial — ficam salvos neste navegador.</p>
+      <h2>Problemas comunicados (<span id="admin-problemas-count">0</span>) <span class="selo selo-ficticio">em tempo real</span></h2>
+      <p class="fonte-mini">Avisos enviados pelos alunos. Novos avisos aparecem aqui e notificam na tela e no computador (mesmo navegador).</p>
       <ul class="admin-lista-frases" id="admin-problemas-lista"></ul>
       <p class="fonte-mini" id="admin-problemas-vazio">Nenhum problema comunicado ainda.</p>
       <button class="botao botao-secundario botao-pequeno" id="admin-limpar-problemas" type="button">Limpar avisos</button>
@@ -95,6 +96,6 @@
   </div>
 </footer>
 
-<script src="script-admin.js"></script>
+<script src="admin-core.js"></script>
 </body>
 </html>

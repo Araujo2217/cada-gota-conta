@@ -598,6 +598,65 @@ a{color:var(--azul-700);}
 .admin-acoes{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.2rem;border-top:2px dashed var(--borda);padding-top:1.2rem;}
 
 /* ============================================================
+   PAINEL INTEGRADO (index.html) + NOTIFICAÇÕES
+   ============================================================ */
+.admin-drawer{
+  position:fixed;top:0;right:0;height:100vh;width:min(400px,94vw);
+  background:var(--azul-050);z-index:1200;
+  transform:translateX(105%);transition:transform .25s ease;
+  overflow-y:auto;box-shadow:-16px 0 40px rgba(6,50,77,.25);
+  padding:1.3rem 1.3rem 2rem;
+}
+.admin-drawer.aberta{transform:translateX(0);}
+.admin-drawer-fechar{
+  position:absolute;top:1rem;right:1rem;width:38px;height:38px;border-radius:50%;
+  border:0;background:var(--azul-100);color:var(--azul-700);
+  font-size:1rem;font-weight:800;cursor:pointer;z-index:2;
+}
+.admin-drawer-fechar:hover{background:var(--azul-300);color:#fff;}
+.admin-drawer .admin-topo-painel{padding-right:3rem;}
+.admin-drawer-topo{
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;
+  margin:.35rem 2.4rem .9rem 0;
+}
+.admin-drawer-topo h1{font-size:1.4rem;margin:0;}
+.admin-drawer #admin-notificar{margin:0 0 1rem;width:100%;}
+.admin-drawer-fundo{
+  position:fixed;inset:0;background:rgba(6,38,60,.45);z-index:1190;
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.admin-drawer-fundo.aberta{opacity:1;pointer-events:auto;}
+.admin-botao-flutuante{
+  position:fixed;right:20px;bottom:88px;z-index:1300;
+  width:60px;height:60px;border-radius:50%;border:0;
+  background:var(--azul-800);color:#fff;font-size:1.5rem;cursor:pointer;
+  box-shadow:0 10px 24px rgba(6,50,77,.35);
+  display:grid;place-items:center;transition:transform .15s,background .2s;
+}
+.admin-botao-flutuante:hover{transform:translateY(-3px) rotate(10deg);background:var(--azul-700);}
+.admin-badge{
+  position:absolute;top:-5px;right:-5px;background:#e33;color:#fff;
+  font-size:.72rem;font-weight:800;min-width:22px;height:22px;border-radius:999px;
+  display:grid;place-items:center;padding:0 .35rem;border:2px solid #fff;
+}
+.admin-notificacoes{
+  position:fixed;right:20px;bottom:160px;z-index:1400;
+  display:grid;gap:.6rem;width:min(340px,calc(100vw - 40px));
+}
+.pagina-admin .admin-notificacoes{bottom:20px;}
+.admin-toast{
+  background:#fff;border-left:6px solid var(--verde-500);border-radius:14px;
+  padding:.9rem 1rem;box-shadow:0 14px 30px rgba(6,50,77,.25);
+  font-size:.92rem;animation:toast-in .25s ease;cursor:pointer;
+}
+.admin-toast strong{display:block;color:var(--azul-900);}
+.admin-toast p{margin:.15rem 0 0;color:var(--tinta-suave);font-size:.85rem;}
+@keyframes toast-in{
+  from{transform:translateX(30px);opacity:0;}
+  to{transform:translateX(0);opacity:1;}
+}
+
+/* ============================================================
    PÁGINA DO ADMINISTRADOR (admin.html)
    ============================================================ */
 .pagina-admin{background:var(--azul-050);}

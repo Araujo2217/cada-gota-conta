@@ -620,8 +620,76 @@
   <p class="rodape-copy">Feito com 💧 por estudantes, professores e famílias • © <span id="ano"></span> Cada Gota Conta</p>
 </footer>
 
+<div class="admin-drawer-fundo" id="admin-drawer-fundo"></div>
+
+<aside class="admin-drawer" id="admin-drawer" aria-label="Painel do administrador">
+  <button class="admin-drawer-fechar" id="admin-fechar" type="button" aria-label="Fechar painel do administrador">✕</button>
+
+  <div class="admin-drawer-topo">
+    <h1>⚙️ Painel do administrador</h1>
+    <button class="botao botao-secundario botao-pequeno" id="admin-sair" type="button">Sair</button>
+  </div>
+
+  <button class="botao botao-secundario botao-pequeno" id="admin-notificar" type="button">🔔 Ativar notificações do computador</button>
+
+  <div class="admin-login-caixa" id="admin-login">
+    <h2>🔐 Área do administrador</h2>
+    <p class="secao-lead">Entre para ver os avisos dos alunos e gerenciar o conteúdo.</p>
+    <form id="admin-login-form">
+      <div class="campo-form">
+        <label for="admin-usuario">Usuário</label>
+        <input type="text" id="admin-usuario" autocomplete="username" required>
+      </div>
+      <div class="campo-form">
+        <label for="admin-senha">Senha</label>
+        <input type="password" id="admin-senha" autocomplete="current-password" required>
+      </div>
+      <p class="admin-erro" id="admin-erro" hidden>Usuário ou senha incorretos. Tente novamente.</p>
+      <button class="botao botao-primario" type="submit">Entrar</button>
+    </form>
+    <p class="fonte-mini">Projeto escolar: usuário <strong>admin</strong> · senha <strong>cada-gota-2026</strong>. A verificação acontece no navegador — apenas demonstração.</p>
+  </div>
+
+  <div id="admin-painel" hidden>
+    <div class="admin-grupo">
+      <h2>Frases de conscientização</h2>
+      <form class="mural-form" id="admin-frase-form">
+        <label class="oculto" for="admin-frase-input">Nova frase de conscientização</label>
+        <input type="text" id="admin-frase-input" placeholder="Digite uma nova frase…" maxlength="120" required>
+        <button class="botao botao-secundario botao-pequeno" type="submit">Adicionar</button>
+      </form>
+      <ul class="admin-lista-frases" id="admin-frases"></ul>
+    </div>
+
+    <div class="admin-grupo">
+      <h2>Ações registradas no mural (<span id="admin-mural-count">0</span>)</h2>
+      <ul class="admin-lista-frases" id="admin-mural-lista"></ul>
+      <p class="fonte-mini" id="admin-mural-vazio">Nenhuma ação registrada ainda.</p>
+      <button class="botao botao-secundario botao-pequeno" id="admin-limpar-mural" type="button">Limpar mural</button>
+    </div>
+
+    <div class="admin-grupo">
+      <h2>Problemas comunicados (<span id="admin-problemas-count">0</span>) <span class="selo selo-ficticio">em tempo real</span></h2>
+      <p class="fonte-mini">Avisos enviados pelos alunos nesta página. Novos avisos aparecem aqui e notificam na tela e no computador (mesmo navegador).</p>
+      <ul class="admin-lista-frases" id="admin-problemas-lista"></ul>
+      <p class="fonte-mini" id="admin-problemas-vazio">Nenhum problema comunicado ainda.</p>
+      <button class="botao botao-secundario botao-pequeno" id="admin-limpar-problemas" type="button">Limpar avisos</button>
+    </div>
+
+    <div class="admin-acoes">
+      <button class="botao botao-secundario botao-pequeno" id="admin-restaurar" type="button">Restaurar frases padrão</button>
+    </div>
+  </div>
+</aside>
+
+<button class="admin-botao-flutuante" id="admin-botao-flutuante" type="button" aria-label="Abrir painel do administrador" title="Painel do administrador">
+  ⚙️
+  <span class="admin-badge" id="admin-badge" hidden>0</span>
+</button>
+
 <button class="voltar-topo" id="voltar-topo" type="button" aria-label="Voltar ao topo da página" hidden>↑</button>
 
 <script src="script.js"></script>
+<script src="admin-core.js"></script>
 </body>
 </html>

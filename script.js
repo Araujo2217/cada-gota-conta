@@ -392,6 +392,7 @@
       nome: $("#reportar-nome").value.trim()
     });
     gravarProblemas(novos);
+    window.dispatchEvent(new CustomEvent("cadaGota:problema", { detail: novos[0] }));
     reportarForm.reset();
     reportarOk.hidden = false;
     setTimeout(() => { reportarOk.hidden = true; }, 9000);
