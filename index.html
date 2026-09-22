@@ -661,7 +661,7 @@
       <h2>Sobre o projeto</h2>
       <p>Site criado como projeto escolar de educação ambiental, em formato de campanha de conscientização. Todos os dados apresentados possuem fonte indicada — nenhum número foi inventado.</p>
       <p class="rodape-nota">As metas da campanha “Nossa Escola Economiza Água” são fictícias e servem apenas de exemplo para a atividade.</p>
-      <p><button class="link-admin" id="btn-admin" type="button">🔐 Área do administrador</button></p>
+      <p><a class="link-admin" href="admin.html">🔐 Área do administrador</a></p>
     </div>
   </div>
 
@@ -669,57 +669,6 @@
 </footer>
 
 <button class="voltar-topo" id="voltar-topo" type="button" aria-label="Voltar ao topo da página" hidden>↑</button>
-
-<!-- ===================== PAINEL DO ADMINISTRADOR ===================== -->
-<div class="modal-fundo" id="modal-admin" hidden>
-  <div class="modal-caixa" role="dialog" aria-modal="true" aria-labelledby="admin-titulo">
-    <button class="modal-fechar" id="admin-fechar" type="button" aria-label="Fechar painel do administrador">✕</button>
-
-    <div id="admin-login">
-      <h2 id="admin-titulo">🔐 Área do administrador</h2>
-      <p class="secao-lead">Entre para editar as metas e frases da campanha e gerenciar o mural de ações.</p>
-      <form id="admin-login-form">
-        <div class="campo-form">
-          <label for="admin-usuario">Usuário</label>
-          <input type="text" id="admin-usuario" autocomplete="username" required>
-        </div>
-        <div class="campo-form">
-          <label for="admin-senha">Senha</label>
-          <input type="password" id="admin-senha" autocomplete="current-password" required>
-        </div>
-        <p class="admin-erro" id="admin-erro" hidden>Usuário ou senha incorretos. Tente novamente.</p>
-        <button class="botao botao-primario" type="submit">Entrar</button>
-      </form>
-      <p class="fonte-mini">Projeto escolar: usuário <strong>admin</strong> · senha <strong>cada-gota-2026</strong> ⚠️ A verificação acontece no navegador — não é segurança real, apenas demonstração.</p>
-    </div>
-
-    <div id="admin-painel" hidden>
-      <h2 id="admin-titulo-painel">⚙️ Painel do administrador</h2>
-      <p class="secao-lead">Edite o conteúdo da campanha. As alterações ficam salvas neste navegador e são exibidas na página.</p>
-
-      <h3>Metas da campanha</h3>
-      <div id="admin-metas"></div>
-
-      <h3>Frases de conscientização</h3>
-      <form class="mural-form" id="admin-frase-form">
-        <label class="oculto" for="admin-frase-input">Nova frase de conscientização</label>
-        <input type="text" id="admin-frase-input" placeholder="Digite uma nova frase…" maxlength="120" required>
-        <button class="botao botao-secundario botao-pequeno" type="submit">Adicionar</button>
-      </form>
-      <ul class="admin-lista-frases" id="admin-frases"></ul>
-
-      <h3>Ações registradas no mural (<span id="admin-mural-count">0</span>)</h3>
-      <ul class="admin-lista-frases" id="admin-mural-lista"></ul>
-      <p class="fonte-mini" id="admin-mural-vazio">Nenhuma ação registrada ainda.</p>
-      <button class="botao botao-secundario botao-pequeno" id="admin-limpar-mural" type="button">Limpar mural</button>
-
-      <div class="admin-acoes">
-        <button class="botao botao-secundario botao-pequeno" id="admin-restaurar" type="button">Restaurar padrões</button>
-        <button class="botao botao-secundario botao-pequeno" id="admin-sair" type="button">Sair</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <script src="script.js"></script>
 </body>

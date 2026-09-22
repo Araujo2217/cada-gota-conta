@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel do Administrador · Cada Gota Conta</title>
+<meta name="description" content="Painel do administrador do site educativo Cada Gota Conta.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🔐</text></svg>">
+</head>
+<body class="pagina-admin">
+
+<a class="skip-link" href="#admin-conteudo">Pular para o conteúdo principal</a>
+
+<header class="cabecalho-admin">
+  <nav class="nav container" aria-label="Navegação do painel">
+    <a class="marca" href="index.html">
+      <svg class="marca-icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 2.5s6.5 7 6.5 11.4A6.5 6.5 0 0 1 12 20.5a6.5 6.5 0 0 1-6.5-6.6C5.5 9.5 12 2.5 12 2.5z" fill="currentColor"/>
+      </svg>
+      <span>Cada Gota Conta</span>
+      <span class="selo">Admin</span>
+    </a>
+    <a class="botao botao-secundario botao-pequeno" href="index.html">← Ver site público</a>
+  </nav>
+</header>
+
+<main class="container container-estreito admin-conteudo" id="admin-conteudo">
+
+  <!-- LOGIN -->
+  <section class="admin-login-caixa" id="admin-login">
+    <h1>🔐 Área do administrador</h1>
+    <p class="secao-lead">Entre para editar as metas e frases da campanha e gerenciar as ações registradas no mural.</p>
+    <form id="admin-login-form">
+      <div class="campo-form">
+        <label for="admin-usuario">Usuário</label>
+        <input type="text" id="admin-usuario" autocomplete="username" required>
+      </div>
+      <div class="campo-form">
+        <label for="admin-senha">Senha</label>
+        <input type="password" id="admin-senha" autocomplete="current-password" required>
+      </div>
+      <p class="admin-erro" id="admin-erro" hidden>Usuário ou senha incorretos. Tente novamente.</p>
+      <button class="botao botao-primario" type="submit">Entrar</button>
+    </form>
+    <p class="fonte-mini">Projeto escolar: usuário <strong>admin</strong> · senha <strong>cada-gota-2026</strong> ⚠️ A verificação acontece no navegador — não é segurança real, apenas demonstração.</p>
+  </section>
+
+  <!-- PAINEL -->
+  <section id="admin-painel" hidden aria-live="polite">
+    <div class="admin-topo-painel">
+      <h1>⚙️ Painel do administrador</h1>
+      <button class="botao botao-secundario botao-pequeno" id="admin-sair" type="button">Sair</button>
+    </div>
+    <p class="secao-lead">As alterações ficam salvas <strong>neste navegador</strong> e aparecem no site público acessado por ele. Para valer para <strong>todos os visitantes</strong>, edite os arquivos e envie ao GitHub (ou peça ajuda).</p>
+
+    <div class="admin-grupo">
+      <h2>Metas da campanha</h2>
+      <p class="fonte-mini">Edite o texto e o percentual de cada meta. O site público atualiza ao abrir.</p>
+      <div id="admin-metas"></div>
+      <button class="botao botao-secundario botao-pequeno" id="admin-restaurar-metas" type="button">Restaurar metas padrão</button>
+    </div>
+
+    <div class="admin-grupo">
+      <h2>Frases de conscientização</h2>
+      <form class="mural-form" id="admin-frase-form">
+        <label class="oculto" for="admin-frase-input">Nova frase de conscientização</label>
+        <input type="text" id="admin-frase-input" placeholder="Digite uma nova frase…" maxlength="120" required>
+        <button class="botao botao-secundario botao-pequeno" type="submit">Adicionar</button>
+      </form>
+      <ul class="admin-lista-frases" id="admin-frases"></ul>
+    </div>
+
+    <div class="admin-grupo">
+      <h2>Ações registradas no mural (<span id="admin-mural-count">0</span>)</h2>
+      <ul class="admin-lista-frases" id="admin-mural-lista"></ul>
+      <p class="fonte-mini" id="admin-mural-vazio">Nenhuma ação registrada ainda.</p>
+      <button class="botao botao-secundario botao-pequeno" id="admin-limpar-mural" type="button">Limpar mural</button>
+    </div>
+
+    <div class="admin-grupo">
+      <h2>Desafio Cada Gota Conta <span class="selo selo-ficticio">estado local</span></h2>
+      <p class="secao-lead">Ações marcadas hoje neste navegador:</p>
+      <p class="dado-grande" id="admin-desafio-count">0 de 4</p>
+      <ul class="lista-marcada" id="admin-desafio-lista"></ul>
+      <p class="fonte-mini" id="admin-desafio-vazio">Nenhuma ação marcada ainda.</p>
+      <button class="botao botao-secundario botao-pequeno" id="admin-reset-desafio" type="button">Zerar desafio</button>
+    </div>
+
+    <div class="admin-acoes">
+      <button class="botao botao-secundario botao-pequeno" id="admin-restaurar" type="button">Restaurar metas e frases padrão</button>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape rodape-admin">
+  <div class="container">
+    <p>💧 <strong>Cada Gota Conta</strong> — painel do administrador · <a href="index.html">voltar ao site público</a> · <a href="#fontes">fontes do projeto</a> (no rodapé do site público)</p>
+  </div>
+</footer>
+
+<script src="script-admin.js"></script>
+</body>
+</html>
