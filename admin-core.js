@@ -23,7 +23,6 @@
 
   /* ---------- Chaves compartilhadas com a página pública ---------- */
   const CHAVE_EDICAO = "cadaGotaConta.edicao";
-  const CHAVE_MURAL = "cadaGotaConta.mural";
   const CHAVE_PROBLEMAS = "cadaGotaConta.problemas";
   const CHAVE_SESSAO = "cadaGotaConta.sessao";
 
@@ -33,13 +32,6 @@
   }
   function gravarEdicao(obj) {
     try { localStorage.setItem(CHAVE_EDICAO, JSON.stringify(obj)); } catch (e) {}
-  }
-  function lerMural() {
-    try { return JSON.parse(localStorage.getItem(CHAVE_MURAL)) || []; }
-    catch (e) { return []; }
-  }
-  function gravarMural(v) {
-    try { localStorage.setItem(CHAVE_MURAL, JSON.stringify(v)); } catch (e) {}
   }
   function lerProblemas() {
     try { return JSON.parse(localStorage.getItem(CHAVE_PROBLEMAS)) || []; }
@@ -189,44 +181,6 @@
       input.value = "";
       renderAdminFrases();
       input.focus();
-    });
-  }
-
-  /* ---------- Mural de ações ---------- */
-  const elAdminMural = $("#admin-mural-lista");
-  const elAdminMuralCount = $("#admin-mural-count");
-  const elAdminMuralVazio = $("#admin-mural-vazio");
-
-  function renderAdminMural() {
-    if (!elAdminMural) return;
-    const acoes = lerMural();
-    if (elAdminMuralCount) elAdminMuralCount.textContent = acoes.length;
-    if (elAdminMuralVazio) elAdminMuralVazio.hidden = acoes.length > 0;
-    elAdminMural.innerHTML = "";
-    acoes.forEach((texto, i) => {
-      const li = document.createElement("li");
-      const span = document.createElement("span");
-      span.textContent = texto;
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.textContent = "apagar";
-      btn.setAttribute("aria-label", "Apagar ação: " + texto);
-      btn.addEventListener("click", () => {
-        const atuais = lerMural();
-        atuais.splice(i, 1);
-        gravarMural(atuais);
-        renderAdminMural();
-      });
-      li.append(span, btn);
-      elAdminMural.appendChild(li);
-    });
-  }
-
-  const limparMuralBtn = $("#admin-limpar-mural");
-  if (limparMuralBtn) {
-    limparMuralBtn.addEventListener("click", () => {
-      gravarMural([]);
-      renderAdminMural();
     });
   }
 
@@ -489,7 +443,6 @@
   /* ---------- Inicialização ---------- */
   function carregarPainel() {
     renderAdminFrases();
-    renderAdminMural();
     renderAdminProblemas();
   }
 

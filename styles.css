@@ -439,28 +439,12 @@ a{color:var(--azul-700);}
   border-radius:0 12px 12px 0;padding:.7rem .9rem;font-weight:700;color:var(--azul-900);
 }
 
-.mural{
-  margin-top:2.6rem;background:linear-gradient(160deg,#eaf7ef,#dff1fb);
-  border:3px dashed var(--verde-300);border-radius:26px;padding:1.8rem;
-}
 .mural-form{display:flex;gap:.8rem;flex-wrap:wrap;}
 .mural-form input{
   flex:1 1 320px;padding:.85rem 1rem;font-size:1rem;font-family:var(--fonte-texto);
   border:3px solid var(--azul-300);border-radius:14px;background:#fff;color:var(--tinta);
 }
 .mural-form input:focus{border-color:var(--azul-500);}
-.mural-lista{list-style:none;margin:1.2rem 0 0;padding:0;display:grid;gap:.6rem;}
-.mural-lista li{
-  background:#fff;border-radius:14px;padding:.75rem 1rem;
-  display:flex;justify-content:space-between;align-items:center;gap:1rem;
-  box-shadow:0 4px 12px rgba(6,50,77,.08);font-weight:600;
-}
-.mural-lista button{
-  background:#ffe9ec;border:0;color:#b3202e;font-weight:800;
-  border-radius:10px;padding:.35rem .7rem;cursor:pointer;font-size:.85rem;
-}
-.mural-lista button:hover{background:#ffd4d9;}
-.mural-vazio{margin:.9rem 0 0;color:var(--tinta-suave);font-style:italic;}
 
 /* ============================================================
    RODAPÉ
@@ -714,7 +698,6 @@ a{color:var(--azul-700);}
   .grade-3{grid-template-columns:1fr;}
   .secao{padding:3.2rem 0;}
   .rodape-grade{grid-template-columns:1fr;}
-  .mural{padding:1.3rem;}
   .hotspot{font-size:.62rem;padding:.3rem .5rem;border-width:2px;}
   .planta{aspect-ratio:8/6;}
   .calc-linha{flex-direction:column;align-items:stretch;}
